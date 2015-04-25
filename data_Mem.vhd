@@ -7,7 +7,7 @@ Entity data_memory  is
 port (
 clk : in std_logic;
 R,W : in std_logic;
-address : in std_logic_vector(7 downto 0);
+address  : in std_logic_vector(7 downto 0);
 datain : in std_logic_vector(7 downto 0);
 dataout : out std_logic_vector(7 downto 0);
 MFC:out std_logic
