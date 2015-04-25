@@ -6,10 +6,13 @@ entity alu_map is
         s1,s2,sp,in_port :in std_logic_vector(7 downto 0);
         -- the index of ra
         ra :in std_logic_vector(1 downto 0) ;
-        result :out std_logic_vector(7 downto 0);
-        FLAGS:out std_logic_vector(3 downto 0)
+        -- return calculate ALU parameter
+        a,b :out std_logic_vector(7 downto 0);
+        cin :out std_logic;
+        oper,change_flags:out std_logic_vector(3 downto 0)
         );
 end alu_map;
+
 architecture alu_map_arch of alu_map is
   component ALSU is 
     port(a1,a2 :in std_logic_vector(7 downto 0);
@@ -21,14 +24,13 @@ architecture alu_map_arch of alu_map is
   end component;
 
   signal one,zero,ff,fs1,fs2:std_logic_vector(7 downto 0);
-  signal oper,tmp_flag :std_logic_vector(3 downto 0);
-	signal cin :std_logic;  
   begin
     -- intitaization
     one <="00000001";
     zero <= "00000000";
     ff <= "11111111";
-
+    a <= fs1;
+    b <= fs2;
     -- note at memory operation the alu should calculate the address and there is
     -- another input tell us the location
     
@@ -87,8 +89,8 @@ architecture alu_map_arch of alu_map is
         else "0101" when opcode = "0101"
         else "1110" when opcode = "0110" and ra = "00"  --rotate left WC
         else "1010" when opcode = "0110" and ra = "01"  --rotate right WC
-        else "1111" when opcode = "0110" and ra = "10"  --set carry
-        else "1111" when opcode = "0110" and ra = "11"  --clear carry
+        else "1001" when opcode = "0110" and ra = "10"  --set carry
+        else "1000" when opcode = "0110" and ra = "11"  --clear carry
         else "0000" when opcode = "0111" and ra = "00"  --push
         else "0000" when opcode = "0111" and ra = "01"  --pop
         else "0001" when opcode = "0111" and ra(1) = '1'   -- in_port and out.port
@@ -98,14 +100,19 @@ architecture alu_map_arch of alu_map is
         else "0011" when opcode = "1000" and ra = "11"  --dec
         else "1111";
 
-      -- ALU module
-      ALSU_module: ALSU port map(fs1,fs2,oper,cin,result,tmp_flag);
 
-      -- Flags
-      flags(0) <= tmp_flag(0); -- oVerflow;
-      flags(1) <= '1' when opcode = "0110" and ra = "10"
-        else '0' when opcode = "0110" and ra = "11"
-        else tmp_flag(1);
-      flags(2) <= tmp_flag(2);
-      flags(3) <=tmp_flag(3);
+    -- save if this operation change in the flags or not
+                   --VCZN
+    change_flags <= "0000" when opcode = "0000"
+            else <= "0000" when opcode = "0001"
+            else <= "1111" when opcode = "0010"
+            else <= "1111" when opcode = "0011"
+            else <= "0011" when opcode = "0100"
+            else <= "0011" when opcode = "0101"
+            else <= "0000" when opcode = "0110"
+            else <= "0000" when opcode = "0111"
+            else <= "0011" when opcode = "1000" and ra(1) = '0'
+            else <= "1111" when opcode = "1000" and ra(1) = '1'
+            else <= "0000";
+
 end alu_map_arch;
