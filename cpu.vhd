@@ -23,7 +23,8 @@ architecture cpu_arch of cpu is
 	Rd   	  : out std_logic_vector(1 downto 0); -- read from destination of this index  from WB
 	sp   	  : out std_logic; -- 1 when push or pop
 	LS		  : out std_logic; -- 1 when write in memory(push,store) , 0 when read (pop,load)
-	R  	  	  : out std_logic);
+	R  	  	  : out std_logic;
+	cin       : out std_logic);
   end component;
   
 	component Reg_file  is
@@ -36,52 +37,60 @@ architecture cpu_arch of cpu is
 	new_stack_value	  : in std_logic_vector(7 downto 0); --new value of the stack pointer
 	S1,S2     :out std_logic_vector (7 downto 0));
 	end component;
-	component ALSU is 
-	port(a1,a2 :in std_logic_vector(7 downto 0);
-	 s :in std_logic_vector(3 downto 0);
-	 Cin :in std_logic;
-	 outt :out std_logic_vector(7 downto 0);
-	 FLAGS:out std_logic_vector(3 downto 0) --(0) OV ,(1) C ,(2) Z ,(3) N
-	 );
-	end component;
-
-  signal W,R,sp_from_cu,sp_from_wb,LS,notclk ,MA:std_logic;
+	entity execute is
+	port( oper :in std_logic_vector(3 downto 0);
+		cin :in std_logic;
+		a,b :in std_logic_vector(7 downto 0);
+		in_flags :in std_logic_vector(3 downto 0);
+		change_flags : in std_logic_vector(3 downto 0);
+		result :out std_logic_vector(7 downto 0);
+		out_flags:out std_logic_vector(3 downto 0)
+		);
+	end execute;
+  signal cin,W,R,sp_from_cu,sp_from_wb,LS,notclk,sp_out ,MA:std_logic;
   signal Rs1,Rs2,Rd	  :std_logic_vector(1 downto 0);
-  signal opr,CF,ALSU_FLAGS		  :std_logic_vector(3 downto 0);
-  signal Datain,new_stack_value,old_stack_value,S1,S2,ALSU_OUT       :std_logic_vector(7 downto 0);
+  signal opr,CF,FLAGS_IN,FLAGS_OUT		  :std_logic_vector(3 downto 0);
+  signal Datain,new_stack_value,old_stack_value,S1,S2,ALSU_OUT,result_out,sp_data_out :std_logic_vector(7 downto 0);
   signal ifid_input,ifid_output :std_logic_vector(16 downto 0);
-  signal idie_input,idie_output, iema_input,iema_output :std_logic_vector(32 downto 0);
+  signal idex_input,idex_output, exmem_input,exmem_output,memwb_input,memwb_output :std_logic_vector(32 downto 0);
   
   begin
   notclk<=not clk;
-  -- IF/ID register
-  --  8 pc & 8 instrucion 
-  IFID_REG_MODULE:my_nreg generic map(16) port map(clk, rst, '1', ifid_input, ifid_output);
-  CU_MODUL		 :cu port map(rst,ifid_output(7 downto 0),Rs1,Rs2,opr,CF,MA,Rd,sp_from_cu,LS,R);
+  FLAG_REG_MODULE:my_nreg generic map(4) port map(clk,rst,'1',FLAGS_IN,FLAGS_OUT);
+	------------------------------------FETCH----------------------------------------------
+ 
+	IFID_REG_MODULE:my_nreg generic map(16) port map(clk, rst, '1', ifid_input, ifid_output);
+  --  8 pc & 8 instrucion  
+  
+  ------------------------------------DECODE----------------------------------------------
+  CU_MODUL		 :cu port map(rst,ifid_output(7 downto 0),Rs1,Rs2,opr,CF,MA,Rd,sp_from_cu,LS,R,cin);
   Reg_file_MODUL :Reg_file port map(notclk,rst,R,W,Rs1,Rs2,Rd,Datain,sp_from_wb,new_stack_value,S1,S2);
+ 
   -- 1LS & 1sp & 2rd & 1MA & 1cin &4change_flags & 4oper & 8s2 & 8s1
-  idie_input(7 downto 0)<=S1;
-  idie_input(15 downto 8)<=S2;
-  idie_input(19 downto 16)<=opr;
-  idie_input(23 downto 20)<=CF;
-  idie_input(24)<='0';
-  idie_input(25)<=MA;
-  idie_input(27 downto 26)<=Rd;
-  idie_input(28)<=sp;
-  idie_input(29)<=LS;
+	idex_input(7 downto 0)<=S1;
+  idex_input(15 downto 8)<=S2;
+  idex_input(19 downto 16)<=opr;
+  idex_input(23 downto 20)<=CF;
+  idex_input(24)<=cin;
+  idex_input(25)<=MA;
+  idex_input(27 downto 26)<=Rd;
+  idex_input(28)<=sp;
+  idex_input(29)<=LS;
+  IDEX_REG_MODULE:my_nreg generic map(32) port map(clk, rst, '1', idex_input, idex_output);
   
-  IDIE_REG_MODULE:my_nreg generic map(32) port map(clk, rst, '1', idie_input, idie_output);
-  ALSU_MODUL:ALSU port map(idie_otput(7 downto 0),idie_output(15 downto 8),idie_input(19 downto 16),idie_input(24),ALSU_OUT,ALSU_FLAGS);
-  -- 1LS & 1sp & 2rd & 1MA & 8s2 & 8result
-  iema_input(7 downto 0)<= ALSU_OUT;
-  iema_input(15 downto 8)<=idie_output(15 downto 8);
-  iema_input(9)<= idie_output(25);
-  iema_input(16 downto 9)<= idie_output(27 downto 26);
-  iema_input(17)<= idie_output(28);
-  iema_input(18)<= idie_output(29);
+  ------------------------------------EXECUTE----------------------------------------------
+  EXECUTE_MODULE:execute port map(idex_output,exmem_input);
   
-  IEMA_REG_MODULE:my_nreg generic map(32) port map(clk, rst, '1', iema_input, iema_output);
+  EXMEM_REG_MODULE:my_nreg generic map(32) port map(clk, rst, '1', exmem_input, exmem_output);
+  
+  ------------------------------------MEMORY ACCESS----------------------------------------------
+  -- MEMORY_ACCESS_MODULE(exmem_output,memwb_input);
 
-
-
+  MEMWB_REG_MODULE:my_nreg generic map(32) port map(clk, rst, '1', memwb_input, memwb_output);
+  
+	------------------------------------WRITE BACK----------------------------------------------
+	--WRITE_BACK_MODULE(memwb_output);
+  
+  
+  
 end cpu_arch;

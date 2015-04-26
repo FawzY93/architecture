@@ -1,0 +1,134 @@
+C:/Users/FeZe/Desktop/architecture/alu_map.vhd {1 {vcom -work work -2002 -explicit C:/Users/FeZe/Desktop/architecture/alu_map.vhd
+Model Technology ModelSim ALTERA vcom 10.1e Compiler 2013.06 Jun 12 2013
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Compiling entity alu_map
+-- Compiling architecture alu_map_arch of alu_map
+
+} {} {}} C:/Users/FeZe/Desktop/architecture/data_Mem.vhd {1 {vcom -work work -2002 -explicit C:/Users/FeZe/Desktop/architecture/data_Mem.vhd
+Model Technology ModelSim ALTERA vcom 10.1e Compiler 2013.06 Jun 12 2013
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Compiling entity data_memory
+-- Compiling architecture syncrama of data_memory
+
+} {} {}} C:/Users/FeZe/Desktop/architecture/my_nreg.vhd {1 {vcom -work work -2002 -explicit C:/Users/FeZe/Desktop/architecture/my_nreg.vhd
+Model Technology ModelSim ALTERA vcom 10.1e Compiler 2013.06 Jun 12 2013
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Compiling entity my_nreg
+-- Compiling architecture Arch_my_nreg of my_nreg
+
+} {} {}} C:/Users/FeZe/Desktop/architecture/A.vhd {1 {vcom -work work -2002 -explicit C:/Users/FeZe/Desktop/architecture/A.vhd
+Model Technology ModelSim ALTERA vcom 10.1e Compiler 2013.06 Jun 12 2013
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Compiling entity A
+-- Compiling architecture arch10 of A
+
+} {} {}} C:/Users/FeZe/Desktop/architecture/B.vhd {1 {vcom -work work -2002 -explicit C:/Users/FeZe/Desktop/architecture/B.vhd
+Model Technology ModelSim ALTERA vcom 10.1e Compiler 2013.06 Jun 12 2013
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Compiling entity B
+-- Compiling architecture arch1 of B
+
+} {} {}} C:/Users/FeZe/Desktop/architecture/my_reg.vhd {1 {vcom -work work -2002 -explicit C:/Users/FeZe/Desktop/architecture/my_reg.vhd
+Model Technology ModelSim ALTERA vcom 10.1e Compiler 2013.06 Jun 12 2013
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Compiling entity my_reg
+-- Compiling architecture a_my_reg of my_reg
+
+} {} {}} C:/Users/FeZe/Desktop/architecture/my_nadder.vhd {1 {vcom -work work -2002 -explicit C:/Users/FeZe/Desktop/architecture/my_nadder.vhd
+Model Technology ModelSim ALTERA vcom 10.1e Compiler 2013.06 Jun 12 2013
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Compiling entity my_nadder
+-- Compiling architecture a_my_nadder of my_nadder
+
+} {} {}} C:/Users/FeZe/Desktop/architecture/C.vhd {1 {vcom -work work -2002 -explicit C:/Users/FeZe/Desktop/architecture/C.vhd
+Model Technology ModelSim ALTERA vcom 10.1e Compiler 2013.06 Jun 12 2013
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Compiling entity C
+-- Compiling architecture arch2 of C
+
+} {} {}} C:/Users/FeZe/Desktop/architecture/D.vhd {1 {vcom -work work -2002 -explicit C:/Users/FeZe/Desktop/architecture/D.vhd
+Model Technology ModelSim ALTERA vcom 10.1e Compiler 2013.06 Jun 12 2013
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Compiling entity D
+-- Compiling architecture arch3 of D
+
+} {} {}} C:/Users/FeZe/Desktop/architecture/Inst_Mem.vhd {1 {vcom -work work -2002 -explicit C:/Users/FeZe/Desktop/architecture/Inst_Mem.vhd
+Model Technology ModelSim ALTERA vcom 10.1e Compiler 2013.06 Jun 12 2013
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Compiling entity Inst_Mem
+-- Compiling architecture syncrama of Inst_Mem
+
+} {} {}} C:/Users/FeZe/Desktop/architecture/my_adder.vhd {1 {vcom -work work -2002 -explicit C:/Users/FeZe/Desktop/architecture/my_adder.vhd
+Model Technology ModelSim ALTERA vcom 10.1e Compiler 2013.06 Jun 12 2013
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Compiling entity my_adder
+-- Compiling architecture a_my_adder of my_adder
+
+} {} {}} C:/Users/FeZe/Desktop/architecture/Memory_Access.vhd {0 {vcom -work work -2002 -explicit C:/Users/FeZe/Desktop/architecture/Memory_Access.vhd
+Model Technology ModelSim ALTERA vcom 10.1e Compiler 2013.06 Jun 12 2013
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Compiling entity Memory_Access
+-- Compiling architecture Mem_Arch of Memory_Access
+** Error: C:/Users/FeZe/Desktop/architecture/Memory_Access.vhd(39): near "<": expecting <= or :=
+** Error: C:/Users/FeZe/Desktop/architecture/Memory_Access.vhd(55): (vcom-1136) Unknown identifier "D_mem".
+
+** Error: C:/Users/FeZe/Desktop/architecture/Memory_Access.vhd(55): Type error resolving infix expression "<=" as type ieee.std_logic_1164.STD_LOGIC.
+** Error: C:/Users/FeZe/Desktop/architecture/Memory_Access.vhd(55): near ":": expecting ';'
+** Warning: [14] C:/Users/FeZe/Desktop/architecture/Memory_Access.vhd(46): (vcom-1272) Length of expected is 8; length of actual is 2.
+
+** Warning: [14] C:/Users/FeZe/Desktop/architecture/Memory_Access.vhd(48): (vcom-1272) Length of expected is 8; length of actual is 2.
+
+** Error: C:/Users/FeZe/Desktop/architecture/Memory_Access.vhd(62): VHDL Compiler exiting
+
+} {9.0 11.0 12.0 14.0 18.0 19.0} {}} C:/Users/FeZe/Desktop/architecture/execute.vhd {1 {vcom -work work -2002 -explicit C:/Users/FeZe/Desktop/architecture/execute.vhd
+Model Technology ModelSim ALTERA vcom 10.1e Compiler 2013.06 Jun 12 2013
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Compiling entity execute
+-- Compiling architecture execute_arch of execute
+
+} {} {}} C:/Users/FeZe/Desktop/architecture/ALSU.vhd {1 {vcom -work work -2002 -explicit C:/Users/FeZe/Desktop/architecture/ALSU.vhd
+Model Technology ModelSim ALTERA vcom 10.1e Compiler 2013.06 Jun 12 2013
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Compiling entity ALSU
+-- Compiling architecture arch4 of ALSU
+
+} {} {}} C:/Users/FeZe/Desktop/architecture/mux4.vhd {1 {vcom -work work -2002 -explicit C:/Users/FeZe/Desktop/architecture/mux4.vhd
+Model Technology ModelSim ALTERA vcom 10.1e Compiler 2013.06 Jun 12 2013
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Compiling entity mux4
+-- Compiling architecture Data_flow of mux4
+
+} {} {}}

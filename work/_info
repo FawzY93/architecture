@@ -1,0 +1,591 @@
+m255
+K3
+13
+cModel Technology
+dC:\altera\14.0\source
+Ea
+Z0 w1430002446
+Z1 DPx3 std 6 textio 0 22 5>J:;AW>W0[[dW0I6EN1Q0
+Z2 DPx4 ieee 14 std_logic_1164 0 22 5=aWaoGZSMWIcH0i^f`XF1
+Z3 dC:\Users\FeZe\Desktop\architecture
+Z4 8C:/Users/FeZe/Desktop/architecture/A.vhd
+Z5 FC:/Users/FeZe/Desktop/architecture/A.vhd
+l0
+L3
+VYS5Vl6n<HJJMo;NVCgNYh1
+Z6 OV;C;10.1e;51
+32
+Z7 !s108 1430002776.802000
+Z8 !s90 -reportprogress|300|-work|work|-2002|-explicit|C:/Users/FeZe/Desktop/architecture/A.vhd|
+Z9 !s107 C:/Users/FeZe/Desktop/architecture/A.vhd|
+Z10 o-work work -2002 -explicit -O0
+Z11 tExplicit 1
+!s100 zFRKahVUT^M`IjEmJ6M3U3
+!i10b 1
+Aarch10
+R1
+R2
+DEx4 work 1 a 0 22 YS5Vl6n<HJJMo;NVCgNYh1
+l22
+L11
+V_Z<]GAOk2d49Bg8oT_zI_3
+R6
+32
+R7
+R8
+R9
+R10
+R11
+!s100 glA8A1Smgf7g2fD1=T1`Y3
+!i10b 1
+Ealsu
+Z12 w1430002472
+R1
+R2
+R3
+Z13 8C:/Users/FeZe/Desktop/architecture/ALSU.vhd
+Z14 FC:/Users/FeZe/Desktop/architecture/ALSU.vhd
+l0
+L3
+VdN?HQd3j0`izkYXPnc@z^1
+R6
+32
+Z15 !s108 1430002777.261000
+Z16 !s90 -reportprogress|300|-work|work|-2002|-explicit|C:/Users/FeZe/Desktop/architecture/ALSU.vhd|
+Z17 !s107 C:/Users/FeZe/Desktop/architecture/ALSU.vhd|
+R10
+R11
+!s100 DZ=6VUeBc=65ZK@R0Ujfg0
+!i10b 1
+Aarch4
+R1
+R2
+DEx4 work 4 alsu 0 22 dN?HQd3j0`izkYXPnc@z^1
+l56
+L12
+VET^6JiL>jPFHb3Y0:L2351
+R6
+32
+R15
+R16
+R17
+R10
+R11
+!s100 z96[0cG?Y]WOQm=IHbV8f1
+!i10b 1
+Ealu_map
+Z18 w1430002877
+R1
+R2
+R3
+Z19 8C:/Users/FeZe/Desktop/architecture/alu_map.vhd
+Z20 FC:/Users/FeZe/Desktop/architecture/alu_map.vhd
+l0
+L3
+VKigFZN<I=Hm?k5g3Ed^h73
+R6
+32
+Z21 !s108 1430002900.837000
+Z22 !s90 -reportprogress|300|-work|work|-2002|-explicit|C:/Users/FeZe/Desktop/architecture/alu_map.vhd|
+Z23 !s107 C:/Users/FeZe/Desktop/architecture/alu_map.vhd|
+R10
+R11
+!s100 FaFLMUcl`B20zAIRD65;d0
+!i10b 1
+Aalu_map_arch
+R1
+R2
+DEx4 work 7 alu_map 0 22 KigFZN<I=Hm?k5g3Ed^h73
+l27
+L16
+V3jN4jZJ2fQ<oc=20E`9>51
+R6
+32
+R21
+R22
+R23
+R10
+R11
+!s100 V_LUJ;bYl6LU[WYhboI;]3
+!i10b 1
+Eb
+Z24 w1430002475
+R1
+R2
+R3
+Z25 8C:/Users/FeZe/Desktop/architecture/B.vhd
+Z26 FC:/Users/FeZe/Desktop/architecture/B.vhd
+l0
+L3
+VPb1`H>oiCg2OJK7VJ3nj[0
+R6
+32
+Z27 !s108 1430002777.674000
+Z28 !s90 -reportprogress|300|-work|work|-2002|-explicit|C:/Users/FeZe/Desktop/architecture/B.vhd|
+Z29 !s107 C:/Users/FeZe/Desktop/architecture/B.vhd|
+R10
+R11
+!s100 kR=f8af5ZMhIoiJMz^D=32
+!i10b 1
+Aarch1
+R1
+R2
+DEx4 work 1 b 0 22 Pb1`H>oiCg2OJK7VJ3nj[0
+l12
+L10
+VZ_O><dPN1kW5Na0`NGVNG3
+R6
+32
+R27
+R28
+R29
+R10
+R11
+!s100 3Kj5?D1QdZTTSOj_7F]Tk1
+!i10b 1
+Ec
+Z30 w1430002446
+R1
+R2
+R3
+Z31 8C:/Users/FeZe/Desktop/architecture/C.vhd
+Z32 FC:/Users/FeZe/Desktop/architecture/C.vhd
+l0
+L3
+V_YnAn7E^PaAYf3QLYdo1M2
+R6
+32
+Z33 !s108 1430002777.967000
+Z34 !s90 -reportprogress|300|-work|work|-2002|-explicit|C:/Users/FeZe/Desktop/architecture/C.vhd|
+Z35 !s107 C:/Users/FeZe/Desktop/architecture/C.vhd|
+R10
+R11
+!s100 aeeok:H0UB@[ST5V54=bR0
+!i10b 1
+Aarch2
+R1
+R2
+DEx4 work 1 c 0 22 _YnAn7E^PaAYf3QLYdo1M2
+l13
+L11
+V6OdW;P4n8k_fOeBU`Oz2A2
+R6
+32
+R33
+R34
+R35
+R10
+R11
+!s100 a8HL6i<f9XhA0N51Y0T[B2
+!i10b 1
+Ecpu
+Z36 w1430003024
+R1
+R2
+R3
+Z37 8C:/Users/FeZe/Desktop/architecture/cpu.vhd
+Z38 FC:/Users/FeZe/Desktop/architecture/cpu.vhd
+l0
+L3
+VX_JkORA=chQXTT^P3^TAY2
+R6
+32
+Z39 !s108 1430003028.118000
+Z40 !s90 -reportprogress|300|-work|work|-2002|-explicit|C:/Users/FeZe/Desktop/architecture/cpu.vhd|
+Z41 !s107 C:/Users/FeZe/Desktop/architecture/cpu.vhd|
+R10
+R11
+!s100 8E@2_]Y2^6d[HS@X@1=Sg1
+!i10b 1
+Acpu_arch
+R1
+R2
+DEx4 work 3 cpu 0 22 X_JkORA=chQXTT^P3^TAY2
+l18
+L8
+Vg2kl4zEMEk?[:0QV`C^e[0
+R6
+32
+R39
+R40
+R41
+R10
+R11
+!s100 9C>_AdE;mN95@RnLmG4>o0
+!i10b 1
+Ed
+Z42 w1430002459
+R1
+R2
+R3
+Z43 8C:/Users/FeZe/Desktop/architecture/D.vhd
+Z44 FC:/Users/FeZe/Desktop/architecture/D.vhd
+l0
+L4
+ViKB3>^2@nNh0mdI7?W_7a0
+R6
+32
+Z45 !s108 1430002778.337000
+Z46 !s90 -reportprogress|300|-work|work|-2002|-explicit|C:/Users/FeZe/Desktop/architecture/D.vhd|
+Z47 !s107 C:/Users/FeZe/Desktop/architecture/D.vhd|
+R10
+R11
+!s100 IZOmJQ=lnd:1eGlhB0D231
+!i10b 1
+Aarch3
+R1
+R2
+DEx4 work 1 d 0 22 iKB3>^2@nNh0mdI7?W_7a0
+l14
+L12
+Vh?QDOcH9aYIib03]7o8VV1
+R6
+32
+R45
+R46
+R47
+R10
+R11
+!s100 ^j1GMg2D5?jK?8aQFWBE82
+!i10b 1
+Edata_memory
+Z48 w1430002610
+Z49 DPx4 ieee 11 numeric_std 0 22 O3PF8EB`?j9=z7KT`fn941
+R1
+R2
+R3
+Z50 8C:/Users/FeZe/Desktop/architecture/data_Mem.vhd
+Z51 FC:/Users/FeZe/Desktop/architecture/data_Mem.vhd
+l0
+L6
+VL`=>FLCdjV2FI7NPY56RI3
+R6
+32
+Z52 !s108 1430002778.573000
+Z53 !s90 -reportprogress|300|-work|work|-2002|-explicit|C:/Users/FeZe/Desktop/architecture/data_Mem.vhd|
+Z54 !s107 C:/Users/FeZe/Desktop/architecture/data_Mem.vhd|
+R10
+R11
+!s100 A5RDdb6lO]l828^=BSXK`0
+!i10b 1
+Asyncrama
+R49
+R1
+R2
+DEx4 work 11 data_memory 0 22 L`=>FLCdjV2FI7NPY56RI3
+l22
+L17
+Vc@dFBKDA1Y[a:]SV`CDGK3
+R6
+32
+R52
+R53
+R54
+R10
+R11
+!s100 AAXJOQOL@Kg@;<ZUe[>YK0
+!i10b 1
+Eexecute
+Z55 w1430003057
+R1
+R2
+R3
+Z56 8C:/Users/FeZe/Desktop/architecture/execute.vhd
+Z57 FC:/Users/FeZe/Desktop/architecture/execute.vhd
+l0
+L4
+V5UnTnR1HleO^NV^FWKLBn1
+R6
+32
+Z58 !s108 1430003065.257000
+Z59 !s90 -reportprogress|300|-work|work|-2002|-explicit|C:/Users/FeZe/Desktop/architecture/execute.vhd|
+Z60 !s107 C:/Users/FeZe/Desktop/architecture/execute.vhd|
+R10
+R11
+!s100 YzzzPXzDWJVL=lNi9HROH2
+!i10b 1
+Aexecute_arch
+R1
+R2
+DEx4 work 7 execute 0 22 5UnTnR1HleO^NV^FWKLBn1
+l27
+L15
+VmDf^7JcO7W]bL4IRJ>kHd2
+R6
+32
+R58
+R59
+R60
+R10
+R11
+!s100 :bTXHPP0ie4zM0BJfkGG]3
+!i10b 1
+Einst_mem
+Z61 w1429931896
+R49
+R1
+R2
+R3
+Z62 8C:/Users/FeZe/Desktop/architecture/Inst_Mem.vhd
+Z63 FC:/Users/FeZe/Desktop/architecture/Inst_Mem.vhd
+l0
+L6
+V63N]`FzHZ4dd6VfnlW5Bg1
+R6
+32
+Z64 !s108 1430002779.016000
+Z65 !s90 -reportprogress|300|-work|work|-2002|-explicit|C:/Users/FeZe/Desktop/architecture/Inst_Mem.vhd|
+Z66 !s107 C:/Users/FeZe/Desktop/architecture/Inst_Mem.vhd|
+R10
+R11
+!s100 C4SGPbPJS7a_TEEOYnkKh1
+!i10b 1
+Asyncrama
+R49
+R1
+R2
+DEx4 work 8 inst_mem 0 22 63N]`FzHZ4dd6VfnlW5Bg1
+l21
+L16
+VcTWV_<SVU]e5R8SUFjSMo1
+R6
+32
+R64
+R65
+R66
+R10
+R11
+!s100 S0M8@6Jg@hk^P`<FJnLKi2
+!i10b 1
+Ememory_access
+w1429999397
+R49
+R1
+R2
+R3
+8C:/Users/FeZe/Desktop/architecture/Memory_Access.vhd
+FC:/Users/FeZe/Desktop/architecture/Memory_Access.vhd
+l0
+L6
+Vm1nUE^MWh6zN=Wa8acF>P1
+!s100 >YzzcYHmIJZA2zCjD8@lZ2
+R6
+32
+!i10b 1
+!s108 1430003070.497000
+!s90 -reportprogress|300|-work|work|-2002|-explicit|C:/Users/FeZe/Desktop/architecture/Memory_Access.vhd|
+!s107 C:/Users/FeZe/Desktop/architecture/Memory_Access.vhd|
+R10
+R11
+Emux4
+Z67 w1421848218
+R1
+R2
+R3
+Z68 8C:/Users/FeZe/Desktop/architecture/mux4.vhd
+Z69 FC:/Users/FeZe/Desktop/architecture/mux4.vhd
+l0
+L3
+VBQ=GnCA6>CgcHOi76]Qb=3
+R6
+32
+Z70 !s108 1430002779.398000
+Z71 !s90 -reportprogress|300|-work|work|-2002|-explicit|C:/Users/FeZe/Desktop/architecture/mux4.vhd|
+Z72 !s107 C:/Users/FeZe/Desktop/architecture/mux4.vhd|
+R10
+R11
+!s100 bA@Hc3Hz]^5RU90LP`56G0
+!i10b 1
+Adata_flow
+R1
+R2
+DEx4 work 4 mux4 0 22 BQ=GnCA6>CgcHOi76]Qb=3
+l15
+L14
+VU5]T5IaZoolW>jZz2R2hL0
+R6
+32
+R70
+R71
+R72
+R10
+R11
+!s100 A:_<LSi=2om^]K2?K32iZ2
+!i10b 1
+Emy_adder
+R67
+R1
+R2
+R3
+Z73 8C:/Users/FeZe/Desktop/architecture/my_adder.vhd
+Z74 FC:/Users/FeZe/Desktop/architecture/my_adder.vhd
+l0
+L5
+VO2P:VbeLW;L05i^U;8bA^0
+R6
+32
+Z75 !s108 1430002779.627000
+Z76 !s90 -reportprogress|300|-work|work|-2002|-explicit|C:/Users/FeZe/Desktop/architecture/my_adder.vhd|
+Z77 !s107 C:/Users/FeZe/Desktop/architecture/my_adder.vhd|
+R10
+R11
+!s100 feTXKRP:haDh>RPCHFa1z1
+!i10b 1
+Aa_my_adder
+R1
+R2
+DEx4 work 8 my_adder 0 22 O2P:VbeLW;L05i^U;8bA^0
+l14
+L12
+Vk<gY`5cGLeYR3mC5Zkz8<2
+R6
+32
+R75
+R76
+R77
+R10
+R11
+!s100 QJgan15mJXM=GZRRRi<za1
+!i10b 1
+Emy_nadder
+Z78 w1429961769
+R1
+R2
+R3
+Z79 8C:/Users/FeZe/Desktop/architecture/my_nadder.vhd
+Z80 FC:/Users/FeZe/Desktop/architecture/my_nadder.vhd
+l0
+L4
+VC][To`5`Se6o@Tn2?JzXm3
+R6
+32
+Z81 !s108 1430002779.883000
+Z82 !s90 -reportprogress|300|-work|work|-2002|-explicit|C:/Users/FeZe/Desktop/architecture/my_nadder.vhd|
+Z83 !s107 C:/Users/FeZe/Desktop/architecture/my_nadder.vhd|
+R10
+R11
+!s100 `XX>kW8M3JCJI@PERc;TM1
+!i10b 1
+Aa_my_nadder
+R1
+R2
+DEx4 work 9 my_nadder 0 22 C][To`5`Se6o@Tn2?JzXm3
+l19
+L12
+VR<S@DncZBgJIZEHGVflTa3
+R6
+32
+R81
+R82
+R83
+R10
+R11
+!s100 eAKb=cT0A8zBP7AGlW1^m3
+!i10b 1
+Emy_nreg
+Z84 w1429932061
+R1
+R2
+R3
+Z85 8C:/Users/FeZe/Desktop/architecture/my_nreg.vhd
+Z86 FC:/Users/FeZe/Desktop/architecture/my_nreg.vhd
+l0
+L4
+VdMQ;6^j_ZoD7cVODh6fbd1
+R6
+32
+Z87 !s108 1430002780.206000
+Z88 !s90 -reportprogress|300|-work|work|-2002|-explicit|C:/Users/FeZe/Desktop/architecture/my_nreg.vhd|
+Z89 !s107 C:/Users/FeZe/Desktop/architecture/my_nreg.vhd|
+R10
+R11
+!s100 jW`cJQ^<AXe5CiiO<;Dk90
+!i10b 1
+Aarch_my_nreg
+R1
+R2
+DEx4 work 7 my_nreg 0 22 dMQ;6^j_ZoD7cVODh6fbd1
+l15
+L10
+V7jC9;ZOGn^o7YU>GdhjRa2
+R6
+32
+R87
+R88
+R89
+R10
+R11
+!s100 Tg9DL4Rn5b<G9<;hL7cOe3
+!i10b 1
+Emy_reg
+R67
+R1
+R2
+R3
+Z90 8C:/Users/FeZe/Desktop/architecture/my_reg.vhd
+Z91 FC:/Users/FeZe/Desktop/architecture/my_reg.vhd
+l0
+L3
+VS_VM?]di>>?R13:@za79G2
+R6
+32
+Z92 !s108 1430002780.427000
+Z93 !s90 -reportprogress|300|-work|work|-2002|-explicit|C:/Users/FeZe/Desktop/architecture/my_reg.vhd|
+Z94 !s107 C:/Users/FeZe/Desktop/architecture/my_reg.vhd|
+R10
+R11
+!s100 ZN@S=Gcnh3o5GVF5GKG7>1
+!i10b 1
+Aa_my_reg
+R1
+R2
+DEx4 work 6 my_reg 0 22 S_VM?]di>>?R13:@za79G2
+l9
+L8
+VoPn^];d1D[k_Y@9AMIE700
+R6
+32
+R92
+R93
+R94
+R10
+R11
+!s100 Z@D]8oQGk9F9_^i3dY^>g3
+!i10b 1
+Ereg_file
+Z95 w1429932521
+R49
+R1
+R2
+R3
+Z96 8C:/Users/FeZe/Desktop/architecture/Reg_file.vhd
+Z97 FC:/Users/FeZe/Desktop/architecture/Reg_file.vhd
+l0
+L6
+VzSee??BJA<1S`hAF[VQK:3
+R6
+32
+Z98 !s108 1430002780.641000
+Z99 !s90 -reportprogress|300|-work|work|-2002|-explicit|C:/Users/FeZe/Desktop/architecture/Reg_file.vhd|
+Z100 !s107 C:/Users/FeZe/Desktop/architecture/Reg_file.vhd|
+R10
+R11
+!s100 UU6_PQfBS;80UVcFN1XE50
+!i10b 1
+Areg_arch
+R49
+R1
+R2
+DEx4 work 8 reg_file 0 22 zSee??BJA<1S`hAF[VQK:3
+l27
+L17
+V^g1WV6H8eT8ZWL4BhbzNC2
+R6
+32
+R98
+R99
+R100
+R10
+R11
+!s100 Z<A8Y6ChNDeQc1DQWCS]22
+!i10b 1
