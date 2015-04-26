@@ -104,15 +104,15 @@ architecture alu_map_arch of alu_map is
     -- save if this operation change in the flags or not
                    --VCZN
     change_flags <= "0000" when opcode = "0000"
-            else <= "0000" when opcode = "0001"
-            else <= "1111" when opcode = "0010"
-            else <= "1111" when opcode = "0011"
-            else <= "0011" when opcode = "0100"
-            else <= "0011" when opcode = "0101"
-            else <= "0000" when opcode = "0110"
-            else <= "0000" when opcode = "0111"
-            else <= "0011" when opcode = "1000" and ra(1) = '0'
-            else <= "1111" when opcode = "1000" and ra(1) = '1'
-            else <= "0000";
+            else  "0000" when opcode = "0001"
+            else  "1111" when opcode = "0010"
+            else  "1111" when opcode = "0011"
+            else  "0011" when opcode = "0100"
+            else  "0011" when opcode = "0101"
+            else  "0000" when opcode = "0110"
+            else  "0000" when opcode = "0111"
+            else  "0011" when opcode = "1000" and ra(1) = '0'
+            else  "1111" when opcode = "1000" and ra(1) = '1'
+            else  "0000";
 
 end alu_map_arch;

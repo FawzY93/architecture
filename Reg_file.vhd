@@ -5,17 +5,19 @@ use ieee.numeric_std.all;
 
 Entity Reg_file  is
 port (
-clk,Rst : in std_logic;
-R,W: in std_logic;
+clk,Rst   : in std_logic;
+R,W		  : in std_logic;
 Rs1,Rs2,Rd: in std_logic_vector(1 downto 0);
-Datain: in std_logic_vector(7 downto 0);
-S1,S2:out std_logic_vector(7 downto 0));
+Datain    : in std_logic_vector(7 downto 0);
+sp		  : in std_logic;
+stack	  : in std_logic_vector(7 downto 0);
+S1,S2     :out std_logic_vector(7 downto 0));
 end Reg_file;
 
 
 
 architecture Reg_Arch of Reg_file is
-   signal r00,r11,r22,r33 :std_logic_vector(7 downto 0) ; 
+   signal r00,r11,r22,r33, R3_in :std_logic_vector(7 downto 0) ; 
    signal R0_en,R1_en,R2_en,R3_en :std_logic;
    
 component my_nreg is
@@ -35,10 +37,13 @@ end component;
    R3_en <= '1' when Rd="11" and W='1' 
    else '0';
    
+   R3_in<= stack when sp='1' 
+   else Datain ; 
+   
    R0: my_nreg port map (clk,Rst,R0_en,Datain,r00);
    R1: my_nreg port map (clk,Rst,R1_en,Datain,r11);
    R2: my_nreg port map (clk,Rst,R2_en,Datain,r22);
-   R3: my_nreg port map (clk,Rst,R3_en,Datain,r33);
+   R3: my_nreg port map (clk,Rst,R3_en,R3_in,r33);
    
 S1<= r00 when Rs1="00" and R='1'
 else r11 when Rs1="01" and R='1'

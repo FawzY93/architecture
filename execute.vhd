@@ -22,7 +22,7 @@ architecture execute_arch of execute is
      );
   end component;
 
-  signal tmp_flags:std_logic_vector(4 downto 0);
+  signal tmp_flags:std_logic_vector(3 downto 0);
 
   begin
     ALSU_module: ALSU port map(a,b,oper,cin,result,tmp_flags);

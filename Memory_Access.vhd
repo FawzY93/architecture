@@ -36,7 +36,7 @@ end  component ;
    data_in <= Mem_In( 15 downto 8);
 	 Rd <= Mem_In(17 downto 16); 
 	 R_W<= Mem_In(18); 
-	 NOP< Mem_In (19); 
+	 NOP<= Mem_In (19); 
 	 
 	 Mem_Out(31 downto 19) <=(others =>'0'); 
 	 Mem_Out(18)<= NOP; 
