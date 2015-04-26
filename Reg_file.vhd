@@ -5,12 +5,12 @@ use ieee.numeric_std.all;
 
 Entity Reg_file  is
 port (
-clk,Rst   : in std_logic;
+clk,rst   : in std_logic;
 R,W		  : in std_logic;
 Rs1,Rs2,Rd: in std_logic_vector(1 downto 0);
 Datain    : in std_logic_vector(7 downto 0);
 sp		  : in std_logic;
-stack	  : in std_logic_vector(7 downto 0);
+new_stack_value	  : in std_logic_vector(7 downto 0);
 S1,S2     :out std_logic_vector(7 downto 0));
 end Reg_file;
 
@@ -34,11 +34,11 @@ end component;
    else '0';
    R2_en <= '1' when Rd="10" and W='1' 
    else '0';
-   R3_en <= '1' when Rd="11" and W='1' 
+   R3_en <= '1' when (Rd="11"  and W='1') or sp='1' 
    else '0';
    
-   R3_in<= stack when sp='1' 
-   else Datain ; 
+   R3_in<= Datain when Rd="11" 
+   else new_stack_value; 
    
    R0: my_nreg port map (clk,Rst,R0_en,Datain,r00);
    R1: my_nreg port map (clk,Rst,R1_en,Datain,r11);
