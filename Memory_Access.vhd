@@ -32,11 +32,19 @@ MFC:out std_logic
 end  component ;
 
    begin 
-	 result<= Mem_In(7 downto 0); 
-   data_in <= Mem_In( 15 downto 8);
-	 Rd <= Mem_In(17 downto 16); 
-	 R_W<= Mem_In(18); 
-	 NOP<= Mem_In (19); 
+	 -- I/P
+	 -- 1LS & 1sp & 2rd & 1MA & 8s2 & 8result
+	result<= Mem_In(7 downto 0); 
+  s2 <= Mem_In( 15 downto 8);
+	MA <= Mem_In(16);
+	Rd<= Mem_In(18 downto 17); 
+	sp<= Mem_In (19);
+	ls<= Mem_In(20);
+	 
+	-----------------------------------
+	  -- O/P
+		-- 2rd & 1sp_out& 8sp_data_out &8ALSU_OUT, 8result_out
+  -------------------------------------------------------------
 	 
 	 Mem_Out(31 downto 19) <=(others =>'0'); 
 	 Mem_Out(18)<= NOP; 
@@ -47,14 +55,16 @@ end  component ;
 	 Mem_Out(7 downto 0) <= result when NOP='0' 
 	 else "00"; 
 	 
-	 write_en<= 
-	 
-	 read_en<=  
-	 
-	    
+	 write_en<= ls and MA;
+	 read_en<=  not ls and MA;   
    D_mem: data_memory port map (clk,read_en,write_en,result,data_in,MFC_out);
 
-	 
+		-- 2rd & 1sp_out& 8sp_data_out &8ALSU_OUT aka sp value, 8result_out
+  Mem_Out(7 downto 0)<=MFC_out;
+  Mem_Out(15 downto 8)<=result;
+  Mem_Out(32)<= sp;
+  Mem_Out(34. downto 33)<=iema_output(16 downto 9);
+  
 	 
 
    

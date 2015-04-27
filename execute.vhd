@@ -25,6 +25,28 @@ architecture execute_arch of execute is
   signal tmp_flags:std_logic_vector(3 downto 0);
 
   begin
+	  -- I/P
+	  -- 1LS & 1sp & 2rd & 1MA & 1cin &4change_flags & 4oper & 8s2 & 8s1
+	idex_input(7 downto 0)<=S1;
+  idex_input(15 downto 8)<=S2;
+  idex_input(19 downto 16)<=opr;
+  idex_input(23 downto 20)<=CF;
+  idex_input(24)<=cin;
+  idex_input(25)<=MA;
+  idex_input(27 downto 26)<=Rd;
+  idex_input(28)<=sp;
+  idex_input(29)<=LS;
+	
+	-- O/P
+	-- 1LS & 1sp & 2rd & 1MA & 8s2 & 8result
+  exmem_input(7 downto 0)<= ALSU_OUT;
+  exmem_input(15 downto 8)<=idie_output(15 downto 8);
+  exmem_input(9)<= idie_output(25);
+  exmem_input(16 downto 9)<= idie_output(27 downto 26);
+  exmem_input(17)<= idie_output(28);
+  exmem_input(18)<= idie_output(29);
+	-------------------------------------------------------------------
+	
     ALSU_module: ALSU port map(a,b,oper,cin,result,tmp_flags);
     out_flags(0) <= tmp_flags(0) when change_flags(0) = '1'
       else in_flags(0);

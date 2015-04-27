@@ -84,7 +84,7 @@ architecture cpu_arch of cpu is
   EXMEM_REG_MODULE:my_nreg generic map(32) port map(clk, rst, '1', exmem_input, exmem_output);
   
   ------------------------------------MEMORY ACCESS----------------------------------------------
-  -- MEMORY_ACCESS_MODULE(exmem_output,memwb_input);
+  -- MEMORY_ACCESS_MODULE(clk,exmem_output,memwb_input);
 
   MEMWB_REG_MODULE:my_nreg generic map(32) port map(clk, rst, '1', memwb_input, memwb_output);
   
