@@ -43,7 +43,11 @@ end  component ;
 	 
 	-----------------------------------
 	  -- O/P
-		-- 2rd & 1sp_out& 8sp_data_out &8ALSU_OUT, 8result_out
+		-- 2rd & 1sp_out &8ALSU_OUT aka sp value, 8result_out
+  Mem_Out(7 downto 0)<=MFC_out;
+  Mem_Out(15 downto 8)<=result;
+  Mem_Out(16)<= sp;
+  Mem_Out(18. downto 17)<=Rd;
   -------------------------------------------------------------
 	 
 	 Mem_Out(31 downto 19) <=(others =>'0'); 
@@ -59,11 +63,7 @@ end  component ;
 	 read_en<=  not ls and MA;   
    D_mem: data_memory port map (clk,read_en,write_en,result,data_in,MFC_out);
 
-		-- 2rd & 1sp_out& 8sp_data_out &8ALSU_OUT aka sp value, 8result_out
-  Mem_Out(7 downto 0)<=MFC_out;
-  Mem_Out(15 downto 8)<=result;
-  Mem_Out(32)<= sp;
-  Mem_Out(34. downto 33)<=iema_output(16 downto 9);
+
   
 	 
 
