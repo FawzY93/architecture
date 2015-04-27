@@ -50,15 +50,6 @@ end  component ;
   Mem_Out(18. downto 17)<=Rd;
   -------------------------------------------------------------
 	 
-	 Mem_Out(31 downto 19) <=(others =>'0'); 
-	 Mem_Out(18)<= NOP; 
-	 Mem_Out(17 downto 16) <= Rd when NOP='0'
-	 else "00" ; 
-	 Mem_Out(15 downto 8) <= data_in when NOP='0' 
-	 else "00";
-	 Mem_Out(7 downto 0) <= result when NOP='0' 
-	 else "00"; 
-	 
 	 write_en<= ls and MA;
 	 read_en<=  not ls and MA;   
    D_mem: data_memory port map (clk,read_en,write_en,result,data_in,MFC_out);
