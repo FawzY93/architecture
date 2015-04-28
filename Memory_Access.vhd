@@ -43,11 +43,13 @@ end  component ;
 	 
 	-----------------------------------
 	  -- O/P
-		-- 2rd & 1sp_out &8ALSU_OUT aka sp value, 8result_out
+		-- 1LS& 1MA &2rd & 1sp_out &8ALSU_OUT aka sp value, 8result_out
   Mem_Out(7 downto 0)<=MFC_out;
   Mem_Out(15 downto 8)<=result;
   Mem_Out(16)<= sp;
   Mem_Out(18. downto 17)<=Rd;
+	Mem_Out(19)<=MA;
+	Mem_Out(20)<=LS;
   -------------------------------------------------------------
 	 
 	 write_en<= ls and MA;
