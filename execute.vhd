@@ -26,7 +26,7 @@ architecture execute_arch of execute is
 
   begin
 	  -- I/P
-	  -- 1LS & 1sp & 2rd & 1MA & 1cin &4change_flags & 4oper & 8s2 & 8s1
+	  --1no_op & 1LS & 1sp & 2rd & 1MA & 1cin &4change_flags & 4oper & 8s2 & 8s1
 	idex_input(7 downto 0)<=S1;
   idex_input(15 downto 8)<=S2;
   idex_input(19 downto 16)<=opr;
@@ -37,8 +37,8 @@ architecture execute_arch of execute is
   idex_input(28)<=sp;
   idex_input(29)<=LS;
 	
-	-- O/P
-	-- 1LS & 1sp & 2rd & 1MA & 8s2 & 8result
+		-- O/P
+		--1no_op & 1LS & 1sp & 2rd & 1MA & 8s2 & 8result
   exmem_input(7 downto 0)<= ALSU_OUT;
   exmem_input(15 downto 8)<=idie_output(15 downto 8);
   exmem_input(9)<= idie_output(25);

@@ -18,12 +18,12 @@ end Write_Back;
 architecture WB_Arch of Write_Back is
 begin
  -- I/P
---  1LS& 1MA & 2rd & 1sp &8ALSU_OUT or sp value& 8result_out
+ -- 1NOP & 1LS & 1MA & 2rd & 1sp &8ALSU_OUT or sp value& 8result_out
 Data<=WB_In(7 downto 0) when MA='1'
 else WB_In(15 downto 8);
 new_stack_value<=WB_In(15 downto 8);
 sp<=WB_In(16);
 Rd<=WB_In(18 downto 17);
-W<=not WB_In(19) or WB_In(20);  -- there will be writeback if its not MemoryAccess operation (MA=0)
+W<=(not WB_In(19) or WB_In(20)) and not WB_In(22)  ;  -- there will be writeback if its not MemoryAccess operation (MA=0)
                                 -- or its Loading operation(pop,load)
 end WB_Arch;

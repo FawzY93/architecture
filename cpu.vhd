@@ -15,6 +15,7 @@ architecture cpu_arch of cpu is
   component cu is
 	port(
 	inst 	  :	in std_logic_vector(7 downto 0);
+	PC_In   : out std_logic_vector(7 downto 0);  --PC that inc or no
 	Rs1,Rs2	  : out std_logic_vector(1 downto 0);
 	opr		  : out std_logic_vector(3 downto 0);
 	CF		  : out std_logic_vector(3 downto 0); -- change flags
@@ -24,7 +25,8 @@ architecture cpu_arch of cpu is
 	sp   	  : out std_logic; -- 1 when push or pop
 	LS		  : out std_logic; -- 1 when write in memory(push,store) , 0 when read (pop,load)
 	R  	  	  : out std_logic;
-	cin       : out std_logic);
+	cin       : out std_logic
+	);
   end component;
   
 	component Reg_file  is
@@ -35,7 +37,8 @@ architecture cpu_arch of cpu is
 	Datain    : in std_logic_vector (7 downto 0);
 	sp		  : in std_logic;
 	new_stack_value	  : in std_logic_vector(7 downto 0); --new value of the stack pointer
-	S1,S2     :out std_logic_vector (7 downto 0));
+	S1,S2     :out std_logic_vector (7 downto 0)
+	);
 	end component;
 	component execute is
 	port( oper :in std_logic_vector(3 downto 0);
@@ -51,7 +54,8 @@ architecture cpu_arch of cpu is
 	port (
 		clk : in std_logic;
 		Mem_In: in std_logic_vector(31 downto 0);
-		Mem_Out:out std_logic_vector(31 downto 0));
+		Mem_Out:out std_logic_vector(31 downto 0)
+		);
 	end component;
 	component Write_Back  is
 	port (
@@ -60,29 +64,40 @@ architecture cpu_arch of cpu is
 		Rd:out std_logic_vector(1 downto 0);
 		Data:out std_logic_vector(7 downto 0);
 		new_stack_value:out std_logic_vector(7 downto 0);
-		W,sp:out std_logic);
+		W,sp:out std_logic
+		);
 	end component;
-
-  signal cin,W,R,sp_from_cu,sp_from_wb,LS,notclk,sp_out ,MA:std_logic;
+	component fetch is
+	port(
+		 clk 	:in std_logic;
+		 R 		:in std_logic;
+		 PC		:in std_logic_vector(7 downto 0);
+		 Inst_pc:out std_logic_vector(15 downto 0);
+		 --Done 	:out std_logic
+		 );
+	end component;
+  signal cin,W,R,sp_from_cu,sp_from_wb,LS,notclk,sp_out ,MA,NOP,ifid_enable,Done:std_logic;
   signal Rs1,Rs2,Rd_from_cu,Rd_from_wb	  :std_logic_vector(1 downto 0);
   signal opr,CF,FLAGS_IN,FLAGS_OUT		  :std_logic_vector(3 downto 0);
-  signal Datain,new_stack_value,old_stack_value,S1,S2,ALSU_OUT,result_out,sp_data_out :std_logic_vector(7 downto 0);
+  signal Datain,new_stack_value,old_stack_value,S1,S2,ALSU_OUT,result_out,sp_data_out,PC_In,PC_Out :std_logic_vector(7 downto 0);
   signal ifid_input,ifid_output :std_logic_vector(16 downto 0);
   signal idex_input,idex_output, exmem_input,exmem_output,memwb_input,memwb_output :std_logic_vector(32 downto 0);
   
   begin
   notclk<=not clk;
+	ifid_enable<=not NOP;
   FLAG_REG_MODULE:my_nreg generic map(4) port map(clk,rst,'1',FLAGS_IN,FLAGS_OUT);
 	------------------------------------FETCH----------------------------------------------
- 
-	IFID_REG_MODULE:my_nreg generic map(16) port map(clk, rst, '1', ifid_input, ifid_output);
+  PC_REG_MODULE:my_nreg generic map(8) port map(clk,rst,'1',PC_In,PC_Out);
+	Fetch_MODULE:fetch port map(clk,R,PC_In,ifid_input);
+	IFID_REG_MODULE:my_nreg generic map(16) port map(clk, rst, ifid_enable, ifid_input, ifid_output);
   --  8 pc & 8 instrucion  
   
   ------------------------------------DECODE----------------------------------------------
-  CU_MODUL		 :cu port map(rst,ifid_output(7 downto 0),Rs1,Rs2,opr,CF,MA,Rd_from_cu,sp_from_cu,LS,R,cin);
+  CU_MODUL		 :cu port map(rst,ifid_output,PC_In,Rs1,Rs2,opr,CF,MA,Rd_from_cu,sp_from_cu,LS,R,cin,NOP);
   Reg_file_MODUL :Reg_file port map(notclk,rst,R,W,Rs1,Rs2,Rd_from_wb,Datain,sp_from_wb,new_stack_value,S1,S2);
  
-  -- 1LS & 1sp & 2rd & 1MA & 1cin &4change_flags & 4oper & 8s2 & 8s1
+  --1NOP & 1LS & 1sp & 2rd & 1MA & 1cin &4change_flags & 4oper & 8s2 & 8s1
 	idex_input(7 downto 0)<=S1;
   idex_input(15 downto 8)<=S2;
   idex_input(19 downto 16)<=opr;
@@ -92,6 +107,7 @@ architecture cpu_arch of cpu is
   idex_input(27 downto 26)<=Rd_from_cu;
   idex_input(28)<=sp;
   idex_input(29)<=LS;
+	idex_input(30)<=NOP;
   IDEX_REG_MODULE:my_nreg generic map(32) port map(clk, rst, '1', idex_input, idex_output);
   
   ------------------------------------EXECUTE----------------------------------------------
@@ -100,12 +116,12 @@ architecture cpu_arch of cpu is
   EXMEM_REG_MODULE:my_nreg generic map(32) port map(clk, rst, '1', exmem_input, exmem_output);
   
   ------------------------------------MEMORY ACCESS----------------------------------------------
-  MEMORY_ACCESS_MODULE:Memory_Access port map(clk,exmem_output,memwb_input);
+  MEMORY_ACCESS_MODULE:Memory_Access port map(NOP,clk,exmem_output,memwb_input);
 
   MEMWB_REG_MODULE:my_nreg generic map(32) port map(clk, rst, '1', memwb_input, memwb_output);
   
 	------------------------------------WRITE BACK----------------------------------------------
-	WRITE_BACK_MODULE:Write_Back port map(clk,memwb_output,Rd_from_wb,Datain,new_stack_value,W,sp_from_wb);
+	WRITE_BACK_MODULE:Write_Back port map(NOP,clk,memwb_output,Rd_from_wb,Datain,new_stack_value,W,sp_from_wb);
   
   
   
