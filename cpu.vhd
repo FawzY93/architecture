@@ -108,8 +108,7 @@ architecture cpu_arch of cpu is
   idex_input(28)<=sp;
   idex_input(29)<=LS;
 	idex_input(30)<=NOP;
-  --test
-  --again
+
   IDEX_REG_MODULE:my_nreg generic map(32) port map(clk, rst, '1', idex_input, idex_output);
   
   ------------------------------------EXECUTE----------------------------------------------
@@ -125,6 +124,5 @@ architecture cpu_arch of cpu is
 	------------------------------------WRITE BACK----------------------------------------------
 	WRITE_BACK_MODULE:Write_Back port map(NOP,clk,memwb_output,Rd_from_wb,Datain,new_stack_value,W,sp_from_wb);
   
-  --again
-  
+
 end cpu_arch;
