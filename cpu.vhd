@@ -109,7 +109,6 @@ architecture cpu_arch of cpu is
   idex_input(29)<=LS;
 	idex_input(30)<=NOP;
   --test
-  
   IDEX_REG_MODULE:my_nreg generic map(32) port map(clk, rst, '1', idex_input, idex_output);
   
   ------------------------------------EXECUTE----------------------------------------------
