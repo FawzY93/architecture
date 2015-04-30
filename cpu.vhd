@@ -80,8 +80,8 @@ architecture cpu_arch of cpu is
   signal Rs1,Rs2,Rd_from_cu,Rd_from_wb	  :std_logic_vector(1 downto 0);
   signal opr,CF,FLAGS_IN,FLAGS_OUT		  :std_logic_vector(3 downto 0);
   signal Datain,new_stack_value,old_stack_value,S1,S2,ALSU_OUT,result_out,sp_data_out,PC_In,PC_Out :std_logic_vector(7 downto 0);
-  signal ifid_input,ifid_output :std_logic_vector(16 downto 0);
-  signal idex_input,idex_output, exmem_input,exmem_output,memwb_input,memwb_output :std_logic_vector(32 downto 0);
+  signal ifid_input,ifid_output :std_logic_vector(15 downto 0);
+  signal idex_input,idex_output, exmem_input,exmem_output,memwb_input,memwb_output :std_logic_vector(31 downto 0);
   
   begin
   notclk<=not clk;
