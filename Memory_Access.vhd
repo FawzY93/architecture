@@ -16,7 +16,7 @@ architecture Mem_Arch of Memory_Access is
   -- Mem_In(7 down to 0): Result"address" ,,Mem_In(15 down to 8): data, Mem_In(17 down to 16): Rd , Mem_In(18): R/W , Mem_In(19):NOP
 
 
-	signal data_in,result,MFC_out :std_logic_vector(7 downto 0) ; 
+	signal data_in,result,dataout :std_logic_vector(7 downto 0) ; 
    signal NOP, write_en,sp,ls, read_en,MA :std_logic;
 	 signal Rd : std_logic_vector(1 downto 0);
 	 
@@ -45,7 +45,7 @@ end  component ;
 	-----------------------------------
 	  -- O/P
 		-- 1LS& 1MA &2rd & 1sp_out &8ALSU_OUT aka sp value, 8result_out
-  Mem_Out(7 downto 0)<=MFC_out;
+  Mem_Out(7 downto 0)<=dataout;
   Mem_Out(15 downto 8)<=result;
   Mem_Out(16)<= sp;
   Mem_Out(18 downto 17)<=Rd;
@@ -56,7 +56,7 @@ end  component ;
 	 
 	 write_en<= ls and MA and not NOP ;
 	 read_en<=  not ls and MA and not NOP;   
-   D_mem: data_memory port map (clk,read_en,write_en,result,data_in,MFC_out);
+   D_mem: data_memory port map (clk,read_en,write_en,result,data_in,dataout);
 
 
   

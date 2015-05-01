@@ -13,7 +13,7 @@ port(
 end fetch;
 architecture f_arch of fetch is
    type ram_type is array(0 to 255) of std_logic_vector(7 downto 0);
-
+--test
 	signal ram : ram_type ;
 	signal dataout: std_logic_vector(7 downto 0); --instruction
 	begin
