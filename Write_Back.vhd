@@ -24,6 +24,6 @@ else WB_In(15 downto 8);
 new_stack_value<=WB_In(15 downto 8);
 sp<=WB_In(16);
 Rd<=WB_In(18 downto 17);
-W<=(not WB_In(19) or WB_In(20)) and not WB_In(22)  ;  -- there will be writeback if its not MemoryAccess operation (MA=0)
+W<=(not WB_In(19) or WB_In(20)) and not WB_In(22)  ; --M) or WB_In(20)) and not WB_In(22)  ; --MA- LS- NOP   -- there will be writeback if its not MemoryAccess operation (MA=0)
                                 -- or its Loading operation(pop,load)
 end WB_Arch;
