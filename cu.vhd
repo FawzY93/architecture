@@ -30,6 +30,20 @@ architecture cu_arch of cu is
   ra <= ifid_output(3 downto 2);
   rb <= ifid_output(1 downto 0);
 
+  MA <= '1' when opcode = "0111" and ra(1) = '0'
+    else '0';
+  WA <= '0'  opcode = "0000" or opcode "0110" and ra(1) = '1' or  opcode = "0111" or ra(1) = '0'
+    else '1';
+
+  -- out port enable ()to write back init
+  out_port_en <= '1' when opcode = "0111" or ra = "10"
+    else '0';
+
+  --if there is an operation on sp at PUSH POP
+  sp_flag <= '1' when opcode = "0111" or ra(1) = '0';
+    else '0';
+
+
   ALU_MAP_MODULE: alu_map port map(opcode, s1, s2, sp, in_port, ra, a,b,cin,oper,change_flags);
 
   idex_input(7 downto 0)<=a;
