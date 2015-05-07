@@ -39,4 +39,6 @@ WB_Out(15 downto 8)<= new_stack_value;
 WB_Out(16)<=sp;
 WB_Out(18 downto 17)<=Rd;
 WB_Out(19)<=W;
+out_port<=WB_In(15 downto 8) when  WB_In(31)='1'
+else "00000000";
 end WB_Arch;
