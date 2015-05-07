@@ -29,7 +29,9 @@ architecture cpu_arch of cpu is
 
 		From_wb:in std_logic_vector(40 downto 0);
 		in_port:in std_logic_vector(7 downto 0);
-		to_idex	:out std_logic_vector(40 downto 0)						
+		to_idex	:out std_logic_vector(40 downto 0);
+		Forward_from_execute:out std_logic_vector(31 downto 0);
+		Forward_From_MA:out std_logic_vector(31 downto 0)
 
 		);
 	end component;
@@ -38,7 +40,8 @@ architecture cpu_arch of cpu is
   	port( idex_output: in std_logic_vector(40 downto 0);
         exmem_input: out std_logic_vector(40 downto 0);
         in_flags: in std_logic_vector(3 downto 0);
-        out_flags: out std_logic_vector(3 downto 0)
+        out_flags: out std_logic_vector(3 downto 0);
+        Forward_from_execute:out std_logic_vector(10 downto 0)
         );
 	end component;
 	component Memory_Access  is
@@ -62,6 +65,7 @@ signal cin,W,R,sp_from_cu,sp_from_wb,LS,notclk,sp_out ,MA,NOP,ifid_enable,Done:s
   signal opr,CF,FLAGS_IN,FLAGS_OUT		  :std_logic_vector(3 downto 0);
   signal Datain,new_stack_value,old_stack_value,S1,S2,ALSU_OUT,result_out,sp_data_out,PC_In,PC_Out :std_logic_vector(7 downto 0);
   signal ifid_input,ifid_output :std_logic_vector(15 downto 0);
+  signal Forward_from_execute:std_logic_vector(31 downto 0);
   signal idex_input,idex_output, exmem_input,exmem_output,memwb_input,memwb_output,WB_Out :std_logic_vector(40 downto 0);
   
   begin
@@ -71,7 +75,7 @@ signal cin,W,R,sp_from_cu,sp_from_wb,LS,notclk,sp_out ,MA,NOP,ifid_enable,Done:s
   FLAG_REG_MODULE:my_nreg generic map(4) port map(clk,rst,'1',FLAGS_IN,FLAGS_OUT);
 	------------------------------------FETCH----------------------------------------------
   PC_REG_MODULE:my_nreg generic map(8) port map(clk,rst,'1',PC_In,PC_Out);
-	Fetch_MODULE:fetch port map(clk,R,PC_In,ifid_input);
+	Fetch_MODULE:fetch port map(clk,'1',PC_In,ifid_input);
 	IFID_REG_MODULE:my_nreg generic map(16) port map(clk, rst, ifid_enable, ifid_input, ifid_output);
   --  8 pc & 8 instrucion  
   

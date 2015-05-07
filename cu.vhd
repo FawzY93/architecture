@@ -59,8 +59,8 @@ architecture cu_arch of cu is
   idex_input(28)<=sp_flag;
   idex_input(29)<=LS;
   idex_input(30)<=NOP;
-  idex_input(31) <= out_port_en;
-  idex_input(32) <= WB;
+  idex_input(32) <= out_port_en;
+  idex_input(31) <= WB;
 
    
 end cu_arch;
