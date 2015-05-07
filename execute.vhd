@@ -20,7 +20,7 @@ architecture execute_arch of execute is
   end component;
 
   signal oper,change_flags,tmp_flags : std_logic_vector(3 downto 0);
-  signal cin, MA ,sp , LS: std_logic;
+  signal cin, MA ,sp , LS,NOP: std_logic;
   signal result, s2, s1 : std_logic_vector(7 downto 0);
   signal Rd: std_logic_vector(1 downto 0);
   begin
@@ -35,9 +35,9 @@ architecture execute_arch of execute is
   Rd <= idex_output(27 downto 26);
   sp <= idex_output(28);
   LS <= idex_output(29);
-
+  NOP<= iden_output(30);
 	-- O/P
-	--1no_op & 1LS & 1sp & 2rd & 1MA & 8s2 & 8result
+	--1no_op & 1LS & 1sp & 2rd & 1MA& 9 bits non use  & 8s2 & 8result
   exmem_input(7 downto 0)<= result;
   exmem_input(15 downto 8)<=idex_output(15 downto 8);
 
@@ -46,6 +46,7 @@ architecture execute_arch of execute is
   exmem_input(27 downto 26)<= idex_output(27 downto 26);
   exmem_input(28)<= idex_output(28);
   exmem_input(29)<= idex_output(29);
+  exmem_input(30)<= idex_output(30);
 	
   -------------------------------------------------------------------
 	

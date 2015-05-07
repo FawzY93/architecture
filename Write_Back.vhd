@@ -5,7 +5,7 @@ use ieee.numeric_std.all;
 
 Entity Write_Back  is
 port (
-clk : in std_logic;
+NOP,clk : in std_logic;
 WB_In: in std_logic_vector(31 downto 0);
 WB_Out:out std_logic_vector(31 downto 0)
 );
@@ -31,7 +31,7 @@ Rd<=WB_In(18 downto 17);
 W<=(not WB_In(19) or WB_In(20)) and not WB_In(22)  ;  -- MA- LS- NOP   -- there will be writeback if its not MemoryAccess operation (MA=0)
                                 -- or its Loading operation(pop,load)
 -- O/P
--- Datain,new_stack_value,sp_from_wb, RD_from_wb,W 
+--  W,RD_from_wb,sp_from_wb,new_stack_value,Datain 
 WB_Out(7 downto 0)<= Data;
 WB_Out(15 downto 7)<= new_stack_value;
 WB_Out(16)<=sp;
