@@ -4,7 +4,7 @@ entity cu is
   port( rst :in std_logic;
     s1,s2,in_port,sp: in std_logic_vector(7 downto 0);
 		ifid_output: in std_logic_vector(15 downto 0);
-    idex_input:out std_logic_vector(31 downto 0)
+    idex_input:out std_logic_vector(40 downto 0)
 		);
 end cu;
 architecture cu_arch of cu is
@@ -24,7 +24,7 @@ architecture cu_arch of cu is
   signal a, b :std_logic_vector(7 downto 0);
   signal opcode, oper, change_flags : std_logic_vector(3 downto 0);
   signal ra,rb : std_logic_vector(1 downto 0);
-  signal cin, MA, LS, WA, out_port_en, sp_flag,NOP ,carry_oper: std_logic;
+  signal cin, MA, LS, WB, out_port_en, sp_flag,NOP ,carry_oper: std_logic;
   begin
   opcode <= ifid_output(7 downto 4);
   ra <= ifid_output(3 downto 2);
@@ -35,7 +35,7 @@ architecture cu_arch of cu is
   carry_oper <= '1' when opcode = "0110" and ra(1) = '1'
     else '0';
 
-  WA <= '0' when opcode = "0000" or carry_oper = '1' or  opcode = "0111" or ra(1) = '0'
+  WB <= '0' when opcode = "0000" or carry_oper = '1' or  opcode = "0111" or ra(1) = '0'
     else '1';
 
   -- out port enable ()to write back init
@@ -59,7 +59,8 @@ architecture cu_arch of cu is
   idex_input(28)<=sp_flag;
   idex_input(29)<=LS;
   idex_input(30)<=NOP;
+  idex_input(31) <= out_port_en;
+  idex_input(32) <= WB;
 
-  --  need to to set the MA , SP , (WA?) , SL so on 
    
 end cu_arch;

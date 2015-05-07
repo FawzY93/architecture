@@ -2,10 +2,10 @@
 Library ieee;
 use ieee.std_logic_1164.all;
 entity execute is
-  port( idex_output: in std_logic_vector(31 downto 0);
-        exmem_input: out std_logic_vector(31 downto 0);
-        in_flags: in std_logic_vector(4 downto 0);
-        out_flags: out std_logic_vector(4 downto 0)
+  port( idex_output: in std_logic_vector(40 downto 0);
+        exmem_input: out std_logic_vector(40 downto 0);
+        in_flags: in std_logic_vector(3 downto 0);
+        out_flags: out std_logic_vector(3 downto 0)
         );
 end execute;
 
@@ -35,7 +35,7 @@ architecture execute_arch of execute is
   Rd <= idex_output(27 downto 26);
   sp <= idex_output(28);
   LS <= idex_output(29);
-  NOP<= iden_output(30);
+  NOP<= idex_output(30);
 	-- O/P
 	--1no_op & 1LS & 1sp & 2rd & 1MA& 9 bits non use  & 8s2 & 8result
   exmem_input(7 downto 0)<= result;

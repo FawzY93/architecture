@@ -10,7 +10,7 @@ port (
    Rs1,Rs2 :in std_logic_vector(1 downto 0);
    S1,S2,stack_value     :out std_logic_vector (7 downto 0);
    From_wb:in std_logic_vector(40 downto 0);
-   inport_out,outport_out:std_logic_vector(7 downto 0)
+   inport_out,outport_out: out std_logic_vector(7 downto 0)
    );
 end Reg_file;
 
@@ -54,7 +54,7 @@ end component;
    R2: my_nreg port map (clk,Rst,R2_en,Datain,r22);
    R3: my_nreg port map (clk,Rst,R3_en,R3_in,r33);
    in_port:my_nreg port map(clk,Rst,'1',inport_in,inport_out);
-   out_port:my_nreg port map(clk,Rst,From_wb(32),Datain,outport_out)
+   out_port:my_nreg port map(clk,Rst,From_wb(32),Datain,outport_out);
 S1<= r00 when Rs1="00" and R='1'
 else r11 when Rs1="01" and R='1'
 else r22 when Rs1="10" and R='1'
@@ -67,7 +67,7 @@ else r22 when Rs2="10" and R='1'
 else r33 when Rs2="11" and R='1'
 else "00000000";
 
-stack_value<=r33
+stack_value<=r33;
    
    
 end architecture Reg_Arch;

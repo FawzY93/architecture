@@ -1,6 +1,8 @@
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 use ieee.numeric_std.all;
+use ieee.std_logic_signed.all;
+use ieee.numeric_std.all;
 
 
 Entity Memory_Access  is
@@ -51,10 +53,14 @@ end  component ;
 	Mem_Out(15 downto 8)<=result-1 when LS='0' and sp='1' and Ma='1' 
 	else result;
 	Mem_Out(16)<= sp;
-	Mem_Out(18 downto 17)<=Rd;
-  	Mem_Out(19)<=MA;
-  	Mem_Out(20)<=LS;
-  	Mem_Out(21)<=Mem_In(21);
+	Mem_Out(27 downto 26)<=Rd;
+  	Mem_Out(25)<=MA;
+  	Mem_Out(29)<=LS;
+    Mem_Out(21)<=Mem_In(21);
+    Mem_Out(30)<=Mem_In(30);
+    Mem_Out(31)<=Mem_In(31);
+    Mem_Out(32)<=Mem_In(32);
+
   -------------------------------------------------------------
 	 
 	 write_en<= ls and MA and not NOP ;
