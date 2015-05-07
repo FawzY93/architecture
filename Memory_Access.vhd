@@ -6,8 +6,8 @@ use ieee.numeric_std.all;
 Entity Memory_Access  is
 port (
 clk : in std_logic;
-Mem_In: in std_logic_vector(31 downto 0);
-Mem_Out:out std_logic_vector(31 downto 0));
+Mem_In: in std_logic_vector(40 downto 0);
+Mem_Out:out std_logic_vector(40 downto 0));
 end Memory_Access;
 
 

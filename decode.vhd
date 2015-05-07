@@ -3,8 +3,8 @@ use ieee.std_logic_1164.all;
 entity decode is
 	port(
 		From_Fetch :in std_logic_vector(15 downto 0);
-		From_wb:in std_logic_vector(31 downto 0);
-		to_idex	:out std_logic_vector(31 downto 0)						
+		From_wb:in std_logic_vector(40 downto 0);
+		to_idex	:out std_logic_vector(40 downto 0)						
 		);
 end decode;
 
@@ -13,27 +13,28 @@ component cu is
  	port( rst :in std_logic;
     s1,s2,in_port,sp: in std_logic_vector(7 downto 0);
 	ifid_output: in std_logic_vector(15 downto 0);
-    idex_input:out std_logic_vector(31 downto 0)
+    idex_input:out std_logic_vector(40 downto 0)
 	);
 end component;
 
 component Reg_file  is
 	port (
-	clk,rst   : in std_logic;
-	R	  : in std_logic;
-	Rs1,Rs2--new value of the stack pointer
-	S1,S2,stack_value     :out std_logic_vector (7 downto 0);
-	From_wb:in std_logic_vector(31 downto 0)
-	);
+   clk,rst   : in std_logic;
+   R    : in std_logic;
+   Rs1,Rs2 :in std_logic_vector(1 downto 0);
+   S1,S2,stack_value     :out std_logic_vector (7 downto 0);
+   From_wb:in std_logic_vector(40 downto 0);
+   inport_out,outport_out:std_logic_vector(7 downto 0)
+   );
 	end component;
-signal S1,S2,in_port,stack_value: std_logic_vector(7 downto 0);
+signal S1,S2,in_port,stack_value,inport_out,outport_out: std_logic_vector(7 downto 0);
 signal Rs1,Rs2	: std_logic_vector(1 downto 0);
 begin
- Rs2<=From_Fetch(1 dowto 0);
+ Rs2<=From_Fetch(1 downto 0);
  Rs1<=From_Fetch(3 downto 2);
 
   CU_MODUL		 :cu port map(rst,S1,S2,in_port,stack_value,From_Fetch,to_idex);
-  Reg_file_MODUL :Reg_file port map(notclk,rst,'1',Rs1,Rs2,S1,S2,stack_value,From_wb);
+  Reg_file_MODUL :Reg_file port map(notclk,rst,'1',Rs1,Rs2,S1,S2,stack_value,From_wb,inport_out,outport_out);
 
 end decode_arch;
 

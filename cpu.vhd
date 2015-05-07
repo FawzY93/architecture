@@ -55,7 +55,7 @@ signal cin,W,R,sp_from_cu,sp_from_wb,LS,notclk,sp_out ,MA,NOP,ifid_enable,Done:s
   signal opr,CF,FLAGS_IN,FLAGS_OUT		  :std_logic_vector(3 downto 0);
   signal Datain,new_stack_value,old_stack_value,S1,S2,ALSU_OUT,result_out,sp_data_out,PC_In,PC_Out :std_logic_vector(7 downto 0);
   signal ifid_input,ifid_output :std_logic_vector(15 downto 0);
-  signal idex_input,idex_output, exmem_input,exmem_output,memwb_input,memwb_output,WB_Out :std_logic_vector(31 downto 0);
+  signal idex_input,idex_output, exmem_input,exmem_output,memwb_input,memwb_output,WB_Out :std_logic_vector(40 downto 0);
   
   begin
   
@@ -72,17 +72,17 @@ signal cin,W,R,sp_from_cu,sp_from_wb,LS,notclk,sp_out ,MA,NOP,ifid_enable,Done:s
 
   Decode_MODULE:decode port map(ifid_output,WB_Out,idex_input);
 
-  IDEX_REG_MODULE:my_nreg generic map(32) port map(clk, rst, '1', idex_input, idex_output);
+  IDEX_REG_MODULE:my_nreg generic map(40) port map(clk, rst, '1', idex_input, idex_output);
   
   ------------------------------------EXECUTE----------------------------------------------
   EXECUTE_MODULE:execute port map(idex_output,exmem_input,FLAGS_OUT,FLAGS_IN);
   
-  EXMEM_REG_MODULE:my_nreg generic map(32) port map(clk, rst, '1', exmem_input, exmem_output);
+  EXMEM_REG_MODULE:my_nreg generic map(40) port map(clk, rst, '1', exmem_input, exmem_output);
   
   ------------------------------------MEMORY ACCESS----------------------------------------------
   MEMORY_ACCESS_MODULE:Memory_Access port map(NOP,clk,exmem_output,memwb_input);
 
-  MEMWB_REG_MODULE:my_nreg generic map(32) port map(clk, rst, '1', memwb_input, memwb_output);
+  MEMWB_REG_MODULE:my_nreg generic map(40) port map(clk, rst, '1', memwb_input, memwb_output);
   
 	------------------------------------WRITE BACK----------------------------------------------
 	WRITE_BACK_MODULE:Write_Back port map(clk,memwb_output,WB_Out);
