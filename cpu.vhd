@@ -24,30 +24,30 @@ architecture cpu_arch of cpu is
   	component decode is
 	port(
 		From_Fetch :in std_logic_vector(15 downto 0);
-		From_wb:in std_logic_vector(31 downto 0);
-		to_idex	:out std_logic_vector(31 downto 0)						
+		From_wb:in std_logic_vector(40 downto 0);
+		to_idex	:out std_logic_vector(40 downto 0)						
 		);
 	end component;
 
   	component execute is
-  	port( idex_output: in std_logic_vector(31 downto 0);
-        exmem_input: out std_logic_vector(31 downto 0);
-        in_flags: in std_logic_vector(4 downto 0);
-        out_flags: out std_logic_vector(4 downto 0)
+  	port( idex_output: in std_logic_vector(40 downto 0);
+        exmem_input: out std_logic_vector(40 downto 0);
+        in_flags: in std_logic_vector(3 downto 0);
+        out_flags: out std_logic_vector(3 downto 0)
         );
 	end component;
 	component Memory_Access  is
 	port (
 		clk : in std_logic;
-		Mem_In: in std_logic_vector(31 downto 0);
-		Mem_Out:out std_logic_vector(31 downto 0)
+		Mem_In: in std_logic_vector(40 downto 0);
+		Mem_Out:out std_logic_vector(40 downto 0)
 		);
 	end component;
 	component Write_Back  is
 	port (
 		clk : in std_logic;
-		WB_In: in std_logic_vector(31 downto 0);
-		WB_Out:out std_logic_vector(31 downto 0)
+		WB_In: in std_logic_vector(40 downto 0);
+		WB_Out:out std_logic_vector(40 downto 0)
 		);
 	end component;
 signal cin,W,R,sp_from_cu,sp_from_wb,LS,notclk,sp_out ,MA,NOP,ifid_enable,Done:std_logic;
@@ -80,7 +80,7 @@ signal cin,W,R,sp_from_cu,sp_from_wb,LS,notclk,sp_out ,MA,NOP,ifid_enable,Done:s
   EXMEM_REG_MODULE:my_nreg generic map(40) port map(clk, rst, '1', exmem_input, exmem_output);
   
   ------------------------------------MEMORY ACCESS----------------------------------------------
-  MEMORY_ACCESS_MODULE:Memory_Access port map(NOP,clk,exmem_output,memwb_input);
+  MEMORY_ACCESS_MODULE:Memory_Access port map(clk,exmem_output,memwb_input);
 
   MEMWB_REG_MODULE:my_nreg generic map(40) port map(clk, rst, '1', memwb_input, memwb_output);
   
