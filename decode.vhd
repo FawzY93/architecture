@@ -4,6 +4,7 @@ entity decode is
 	port(
 		From_Fetch :in std_logic_vector(15 downto 0);
 		From_wb:in std_logic_vector(40 downto 0);
+		in_port:in std_logic_vector(7 downto 0);
 		to_idex	:out std_logic_vector(40 downto 0)						
 		);
 end decode;

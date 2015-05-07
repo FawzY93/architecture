@@ -58,8 +58,8 @@ end  component ;
   	Mem_Out(29)<=LS;
     Mem_Out(21)<=Mem_In(21);
     Mem_Out(30)<=Mem_In(30);
-    Mem_Out(31)<=Mem_In(31);
-    Mem_Out(32)<=Mem_In(32);
+    Mem_Out(31)<=Mem_In(31); --outport enable
+    Mem_Out(32)<=Mem_In(32); 
 
   -------------------------------------------------------------
 	 
