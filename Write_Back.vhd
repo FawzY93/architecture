@@ -7,7 +7,8 @@ Entity Write_Back  is
 port (
 clk : in std_logic;
 WB_In: in std_logic_vector(40 downto 0);
-WB_Out:out std_logic_vector(40 downto 0)
+WB_Out:out std_logic_vector(40 downto 0);
+out_port:out std_logic_vector(7 downto 0)
 );
 end Write_Back;
 

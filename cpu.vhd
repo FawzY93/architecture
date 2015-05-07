@@ -2,6 +2,8 @@ Library ieee;
 use ieee.std_logic_1164.all;
 entity cpu is
   port( clk,rst :in std_logic
+        in_port:in std_logic_vector(7 downto 0);
+        out_port:out std_logic_vector(7 downto 0)
         );
 end cpu;
 
@@ -25,6 +27,7 @@ architecture cpu_arch of cpu is
 	port(
 		From_Fetch :in std_logic_vector(15 downto 0);
 		From_wb:in std_logic_vector(31 downto 0);
+		in_port:in std_logic_vector(7 downto 0);
 		to_idex	:out std_logic_vector(31 downto 0)						
 		);
 	end component;
@@ -47,7 +50,8 @@ architecture cpu_arch of cpu is
 	port (
 		clk : in std_logic;
 		WB_In: in std_logic_vector(31 downto 0);
-		WB_Out:out std_logic_vector(31 downto 0)
+		WB_Out:out std_logic_vector(31 downto 0);
+		out_port:out std_logic_vector(7 downto 0)
 		);
 	end component;
 signal cin,W,R,sp_from_cu,sp_from_wb,LS,notclk,sp_out ,MA,NOP,ifid_enable,Done:std_logic;
@@ -70,7 +74,7 @@ signal cin,W,R,sp_from_cu,sp_from_wb,LS,notclk,sp_out ,MA,NOP,ifid_enable,Done:s
   
   ------------------------------------DECODE----------------------------------------------
 
-  Decode_MODULE:decode port map(ifid_output,WB_Out,idex_input);
+  Decode_MODULE:decode port map(ifid_output,WB_Out,in_port,idex_input);
 
   IDEX_REG_MODULE:my_nreg generic map(40) port map(clk, rst, '1', idex_input, idex_output);
   
@@ -85,7 +89,7 @@ signal cin,W,R,sp_from_cu,sp_from_wb,LS,notclk,sp_out ,MA,NOP,ifid_enable,Done:s
   MEMWB_REG_MODULE:my_nreg generic map(40) port map(clk, rst, '1', memwb_input, memwb_output);
   
 	------------------------------------WRITE BACK----------------------------------------------
-	WRITE_BACK_MODULE:Write_Back port map(clk,memwb_output,WB_Out);
+	WRITE_BACK_MODULE:Write_Back port map(clk,memwb_output,WB_Out,out_port);
   
 
 end cpu_arch;
