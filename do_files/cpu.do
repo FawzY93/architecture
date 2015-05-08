@@ -8,8 +8,6 @@ vsim work.cpu
 # Loading work.my_reg(a_my_reg)
 # Loading ieee.numeric_std(body)
 # Loading work.fetch(f_arch)
-# ** Warning: (vsim-3473) Component instance "Decode_MODULE : decode" is not bound.
-#    Time: 0 ps  Iteration: 0  Instance: /cpu File: /home/ahmed/architecture/cpu.vhd
 # Loading work.execute(execute_arch)
 # Loading work.alsu(arch4)
 # Loading work.b(arch1)

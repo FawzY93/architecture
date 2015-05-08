@@ -17,13 +17,13 @@ architecture f_arch of fetch is
 	signal ram : ram_type ;
 	signal dataout: std_logic_vector(7 downto 0); --instruction
 	begin
+	Inst_pc(15 downto 8)<= PC;
+	Inst_pc(7 downto 0)<= dataout;
 		process(clk) is
 		  Begin
 			if falling_edge(clk) then  
 			  if (R = '1') then
 				dataout <= ram(to_integer(unsigned(PC)));
-				Inst_pc(15 downto 8)<= PC;
-				Inst_pc(7 downto 0)<= dataout;
 				Done <= '1';
 			  else
 				Done <= '0';
