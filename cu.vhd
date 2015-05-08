@@ -46,6 +46,9 @@ architecture cu_arch of cu is
   sp_flag <= '1' when opcode = "0111" or ra(1) = '0'
     else '0';
 
+  NOP <= '0';
+  LS <= '1' when opcode = "0111" and ra = "01"  -- at pop operation
+    else '0'; 
 
   ALU_MAP_MODULE: alu_map port map(opcode, s1, s2, sp, in_port, ra, a,b,cin,oper,change_flags);
 
@@ -61,6 +64,13 @@ architecture cu_arch of cu is
   idex_input(30)<=NOP;
   idex_input(31) <= out_port_en;
   idex_input(32) <= WB;
+  idex_input(33) <= '0';
+  idex_input(34) <= '0';
+  idex_input(35) <= '0';
+  idex_input(36) <= '0';
+  idex_input(37) <= '0';
+  idex_input(38) <= '0';
+  idex_input(39) <= '0';
+  idex_input(40) <= '0';
 
-   
 end cu_arch;
