@@ -35,7 +35,7 @@ architecture cu_arch of cu is
   carry_oper <= '1' when opcode = "0110" and ra(1) = '1'
     else '0';
 
-  WB <= '0' when opcode = "0000" or carry_oper = '1' or  (opcode = "0111" and ra(1) = '0')
+  WB <= '0' when opcode = "0000" or carry_oper = '1' or  (opcode = "0111" and ra = "00") or (opcode = "0111" and ra = "10")
     else '1';
 
   -- out port enable ()to write back init

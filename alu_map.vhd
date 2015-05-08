@@ -59,7 +59,7 @@ architecture alu_map_arch of alu_map is
         else s2 when opcode = "0100"
         else s2 when opcode = "0101"
         else zero when opcode = "0110"
-        else zero when opcode = "0111"  --one operand operation
+        else s2 when opcode = "0111"  --one operand operation
         else zero when opcode = "1000" --one operand operation
         else s2;
 
