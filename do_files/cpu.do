@@ -75,7 +75,7 @@ mem load -i {/home/ahmed/architecture/work/testcases v2/AFormat-WithoutPushPop.m
 force -freeze sim:/cpu/rst 1 0
 force -freeze sim:/cpu/clk 1 0, 0 {50 ps} -r 100
 run
-force -freeze sim:/cpu/in_port 00110001 0
+force -freeze sim:/cpu/in_port 00101101 0
 force -freeze sim:/cpu/rst 0 0
 run
 run
@@ -84,6 +84,6 @@ force -freeze sim:/cpu/in_port 00000101 0
 run
 force -freeze sim:/cpu/in_port 01000110 0
 run
-force -freeze sim:/cpu/in_port 01000110 0
+force -freeze sim:/cpu/in_port 01111110 0
 run
 

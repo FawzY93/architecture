@@ -35,15 +35,15 @@ architecture cu_arch of cu is
   carry_oper <= '1' when opcode = "0110" and ra(1) = '1'
     else '0';
 
-  WB <= '0' when opcode = "0000" or carry_oper = '1' or  opcode = "0111" or ra(1) = '0'
+  WB <= '0' when opcode = "0000" or carry_oper = '1' or  (opcode = "0111" and ra(1) = '0')
     else '1';
 
   -- out port enable ()to write back init
-  out_port_en <= '1' when opcode = "0111" or ra = "10"
+  out_port_en <= '1' when opcode = "0111" and ra = "10"
     else '0';
 
   --if there is an operation on sp at PUSH POP
-  sp_flag <= '1' when opcode = "0111" or ra(1) = '0'
+  sp_flag <= '1' when opcode = "0111" and ra(1) = '0'
     else '0';
 
   NOP <= '0';
@@ -58,7 +58,8 @@ architecture cu_arch of cu is
   idex_input(23 downto 20)<=change_flags;
   idex_input(24)<=cin;
   idex_input(25)<=MA;
-  idex_input(27 downto 26)<=ra;
+  idex_input(27 downto 26)<= rb when opcode = "0110" or opcode ="0111" or opcode = "1000"
+    else ra;
   idex_input(28)<=sp_flag;
   idex_input(29)<=LS;
   idex_input(30)<=NOP;
