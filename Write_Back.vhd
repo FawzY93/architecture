@@ -31,7 +31,7 @@ new_stack_value<=WB_In(15 downto 8);
 sp<=WB_In(28);
 Rd<=WB_In(27 downto 26);
 W <= WB_In(32)  ;  -- MA- LS- NOP   -- there will be writeback if its not MemoryAccess operation (MA=0)
-                                -- or its Loading operation(pop,load)
+       
 -- O/P
 --  W,RD_from_wb,sp_from_wb,new_stack_value,Datain 
 WB_Out(7 downto 0)<= Data;
@@ -41,4 +41,5 @@ WB_Out(18 downto 17)<=Rd;
 WB_Out(19)<=W;
 out_port<=WB_In(15 downto 8) when  WB_In(31)='1'
 else "00000000";
+WB_Out(40 downto 20)<=(others=>'0');
 end WB_Arch;

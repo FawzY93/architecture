@@ -53,6 +53,9 @@ end  component ;
 	Mem_Out(15 downto 8)<=result-1 when LS='0' and sp='1' and Ma='1' 
 	else result;
 	Mem_Out(16)<= sp;
+	-----------------------------------------
+	Mem_Out(24 downto 16)<=(others=>'0');
+	-----------------------------------------
 	Mem_Out(27 downto 26)<=Rd;
   	Mem_Out(25)<=MA;
   	Mem_Out(29)<=LS;
@@ -60,8 +63,9 @@ end  component ;
     Mem_Out(30)<=Mem_In(30);
     Mem_Out(31)<=Mem_In(31); --outport enable
     Mem_Out(32)<=Mem_In(32); 
-
-  -------------------------------------------------------------
+	---------------------------------------------
+	Mem_Out(40 downto 33)<=(others=>'0');
+  	------------------------------------------------------------
 	 
 	 write_en<= ls and MA and not NOP ;
 	 read_en<=  not ls and MA and not NOP;   
