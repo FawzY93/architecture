@@ -1,7 +1,7 @@
 Library ieee;
 use ieee.std_logic_1164.all;
 entity cpu is
-  port( clk,rst :in std_logic
+  port( clk,rst :in std_logic;
         in_port:in std_logic_vector(7 downto 0);
         out_port:out std_logic_vector(7 downto 0)
         );
@@ -25,11 +25,12 @@ architecture cpu_arch of cpu is
 	end component;
   	component decode is
 	port(
+    notclk,rst: in std_logic;
 		From_Fetch :in std_logic_vector(15 downto 0);
-
 		From_wb:in std_logic_vector(40 downto 0);
 		in_port:in std_logic_vector(7 downto 0);
-		to_idex	:out std_logic_vector(40 downto 0)						
+		to_idex	:out std_logic_vector(40 downto 0);
+    PC_In: out std_logic_vector(7 downto 0)
 
 		);
 	end component;
@@ -60,7 +61,7 @@ architecture cpu_arch of cpu is
 signal cin,W,R,sp_from_cu,sp_from_wb,LS,notclk,sp_out ,MA,NOP,ifid_enable,Done:std_logic;
   signal Rs1,Rs2,Rd_from_cu,Rd_from_wb	  :std_logic_vector(1 downto 0);
   signal opr,CF,FLAGS_IN,FLAGS_OUT		  :std_logic_vector(3 downto 0);
-  signal Datain,new_stack_value,old_stack_value,S1,S2,ALSU_OUT,result_out,sp_data_out,PC_In,PC_Out :std_logic_vector(7 downto 0);
+  signal Datain,new_stack_value,old_stack_value,S1,S2,ALSU_OUT,result_out,sp_data_out,PC_In,PC_Out,PC_In_Fetch :std_logic_vector(7 downto 0);
   signal ifid_input,ifid_output :std_logic_vector(15 downto 0);
   signal idex_input,idex_output, exmem_input,exmem_output,memwb_input,memwb_output,WB_Out :std_logic_vector(40 downto 0);
   
@@ -71,13 +72,17 @@ signal cin,W,R,sp_from_cu,sp_from_wb,LS,notclk,sp_out ,MA,NOP,ifid_enable,Done:s
   FLAG_REG_MODULE:my_nreg generic map(4) port map(clk,rst,'1',FLAGS_IN,FLAGS_OUT);
 	------------------------------------FETCH----------------------------------------------
   PC_REG_MODULE:my_nreg generic map(8) port map(clk,rst,'1',PC_In,PC_Out);
-	Fetch_MODULE:fetch port map(clk,R,PC_In,ifid_input);
-	IFID_REG_MODULE:my_nreg generic map(16) port map(clk, rst, ifid_enable, ifid_input, ifid_output);
+
+  PC_In_Fetch <= "00000000" when rst = '1'
+    else PC_In;
+
+	Fetch_MODULE:fetch port map(clk,'1',PC_In_Fetch,ifid_input);
+	IFID_REG_MODULE:my_nreg generic map(16) port map(clk, rst, '1', ifid_input, ifid_output);
   --  8 pc & 8 instrucion  
   
   ------------------------------------DECODE----------------------------------------------
 
-  Decode_MODULE:decode port map(ifid_output,WB_Out,in_port,idex_input);
+  Decode_MODULE:decode port map(notclk,rst,ifid_output,WB_Out,in_port,idex_input, PC_In);
 
   IDEX_REG_MODULE:my_nreg generic map(41) port map(clk, rst, '1', idex_input, idex_output);
   

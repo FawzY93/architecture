@@ -29,6 +29,7 @@ sim:/cpu/clk \
 sim:/cpu/rst \
 sim:/cpu/PC_In \
 sim:/cpu/PC_Out \
+sim:/cpu/PC_In_Fetch \
 sim:/cpu/ifid_input \
 sim:/cpu/ifid_output \
 sim:/cpu/idex_input \
@@ -66,4 +67,17 @@ sim:/cpu/S2 \
 sim:/cpu/ALSU_OUT \
 sim:/cpu/result_out \
 sim:/cpu/sp_data_out
+
+add wave -position 2  sim:/cpu/in_port
+add wave -position 3  sim:/cpu/out_port
+
+mem load -i {/home/ahmed/architecture/work/testcases v2/AFormat-WithoutPushPop.mem} -filltype value -filldata ahmed -fillradix symbolic -skip 0 /cpu/Fetch_MODULE/ram
+
+###start
+force -freeze sim:/cpu/rst 1 0
+force -freeze sim:/cpu/clk 1 0, 0 {50 ps} -r 100
+run
+force -freeze sim:/cpu/in_port 00110001 0
+force -freeze sim:/cpu/rst 0 0
+run
 
