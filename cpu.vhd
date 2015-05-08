@@ -30,7 +30,7 @@ architecture cpu_arch of cpu is
 		From_wb:in std_logic_vector(40 downto 0);
 		in_port:in std_logic_vector(7 downto 0);
 		to_idex	:out std_logic_vector(40 downto 0);
-    PC_In: out std_logic_vector(7 downto 0)
+    PC_In: out std_logic_vector(7 downto 0);
 		Forward_from_execute:out std_logic_vector(31 downto 0);
 		Forward_From_MA:out std_logic_vector(31 downto 0)
 

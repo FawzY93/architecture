@@ -47,9 +47,7 @@ end  component ;
 	sp<= Mem_In (28);
 	ls<= Mem_In(29);
 	NOP<=Mem_In(30);
-	-----------------------------------
-	Forward_From_MA()	
-	-----------------------------------
+
 	  -- O/P
 	-- 1LS& 1MA &2rd & 1sp_out &8ALSU_OUT or sp value, 8result_out
 	Mem_Out(7 downto 0)<=dataout;
