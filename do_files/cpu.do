@@ -69,7 +69,7 @@ sim:/cpu/sp_data_out
 add wave -position 2  sim:/cpu/in_port
 add wave -position 3  sim:/cpu/out_port
 
-mem load -i {/home/ahmed/architecture/work/testcases v2/AFormat-WithoutPushPop.mem} -filltype value -filldata ahmed -fillradix symbolic -skip 0 /cpu/Fetch_MODULE/ram
+mem load -i {work/testcases v2/AFormat-WithoutPushPop.mem} -filltype value -filldata ahmed -fillradix symbolic -skip 0 /cpu/Fetch_MODULE/ram
 
 ###start
 force -freeze sim:/cpu/rst 1 0
