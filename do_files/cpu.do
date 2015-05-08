@@ -25,6 +25,11 @@ vsim work.cpu
 add wave -position insertpoint  \
 sim:/cpu/clk \
 sim:/cpu/rst \
+sim:/cpu/in_port \
+sim:/cpu/out_port \
+sim:/cpu/notclk \
+sim:/cpu/FLAGS_IN \
+sim:/cpu/FLAGS_OUT \
 sim:/cpu/PC_In \
 sim:/cpu/PC_Out \
 sim:/cpu/PC_In_Fetch \
@@ -36,40 +41,15 @@ sim:/cpu/exmem_input \
 sim:/cpu/exmem_output \
 sim:/cpu/memwb_input \
 sim:/cpu/memwb_output \
-sim:/cpu/WB_Out \
-sim:/cpu/cin \
-sim:/cpu/W \
-sim:/cpu/R \
-sim:/cpu/sp_from_cu \
-sim:/cpu/sp_from_wb \
-sim:/cpu/LS \
-sim:/cpu/notclk \
-sim:/cpu/sp_out \
-sim:/cpu/MA \
-sim:/cpu/NOP \
-sim:/cpu/ifid_enable \
-sim:/cpu/Done \
-sim:/cpu/Rs1 \
-sim:/cpu/Rs2 \
-sim:/cpu/Rd_from_cu \
-sim:/cpu/Rd_from_wb \
-sim:/cpu/opr \
-sim:/cpu/CF \
-sim:/cpu/FLAGS_IN \
-sim:/cpu/FLAGS_OUT \
-sim:/cpu/Datain \
-sim:/cpu/new_stack_value \
-sim:/cpu/old_stack_value \
-sim:/cpu/S1 \
-sim:/cpu/S2 \
-sim:/cpu/ALSU_OUT \
-sim:/cpu/result_out \
-sim:/cpu/sp_data_out
+sim:/cpu/WB_Out
 
 add wave -position 2  sim:/cpu/in_port
 add wave -position 3  sim:/cpu/out_port
 
-mem load -i {work/testcases v2/AFormat-WithoutPushPop.mem} -filltype value -filldata ahmed -fillradix symbolic -skip 0 /cpu/Fetch_MODULE/ram
+mem load -i {work/testcases v2/AFormat-WithoutPushPop.mem} -filltype value -filldata inst_mem -fillradix symbolic -skip 0 /cpu/Fetch_MODULE/ram
+
+mem load -i {work/testcases v2/AFormat-WithoutPushPop.mem} -format mti -filltype value -filldata data_mem -fillradix symbolic -skip 0 /cpu/MEMORY_ACCESS_MODULE/D_mem/ram
+
 
 ###start
 force -freeze sim:/cpu/rst 1 0

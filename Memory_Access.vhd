@@ -69,7 +69,7 @@ end  component ;
   	------------------------------------------------------------
 	 
 	 write_en<= not ls and MA and not NOP ;
-	 read_en<=  ls and MA and not NOP;   
+	 read_en<=  not write_en;
    D_mem: data_memory port map (clk,read_en,write_en,result,data_in,dataout);
 
 

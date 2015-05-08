@@ -58,10 +58,9 @@ architecture cpu_arch of cpu is
 		out_port:out std_logic_vector(7 downto 0)
 		);
 	end component;
-signal cin,W,R,sp_from_cu,sp_from_wb,LS,notclk,sp_out ,MA,NOP,ifid_enable,Done:std_logic;
-  signal Rs1,Rs2,Rd_from_cu,Rd_from_wb	  :std_logic_vector(1 downto 0);
-  signal opr,CF,FLAGS_IN,FLAGS_OUT		  :std_logic_vector(3 downto 0);
-  signal Datain,new_stack_value,old_stack_value,S1,S2,ALSU_OUT,result_out,sp_data_out,PC_In,PC_Out,PC_In_Fetch :std_logic_vector(7 downto 0);
+signal notclk:std_logic;
+  signal FLAGS_IN,FLAGS_OUT		  :std_logic_vector(3 downto 0);
+  signal PC_In,PC_Out,PC_In_Fetch :std_logic_vector(7 downto 0);
   signal ifid_input,ifid_output :std_logic_vector(15 downto 0);
   signal ifid_input_temp,ifid_output_temp :std_logic_vector(15 downto 0);
   signal idex_input,idex_output, exmem_input,exmem_output,memwb_input,memwb_output,WB_Out :std_logic_vector(40 downto 0);
@@ -69,7 +68,6 @@ signal cin,W,R,sp_from_cu,sp_from_wb,LS,notclk,sp_out ,MA,NOP,ifid_enable,Done:s
   begin
   
   notclk<=not clk;
-  ifid_enable<=not NOP;
   FLAG_REG_MODULE:my_nreg generic map(4) port map(clk,rst,'1',FLAGS_IN,FLAGS_OUT);
 	------------------------------------FETCH----------------------------------------------
   PC_REG_MODULE:my_nreg generic map(8) port map(clk,rst,'1',PC_In,PC_Out);
