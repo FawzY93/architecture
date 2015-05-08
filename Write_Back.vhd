@@ -39,7 +39,6 @@ WB_Out(16)<=sp;
 WB_Out(18 downto 17)<=Rd;
 WB_Out(19)<=W;
 out_port<=WB_In(15 downto 8) when  WB_In(31)='1'
-WB_Out(40 downto 20)<=(others=>'0');
 else "00000000";
 WB_Out(40 downto 20)<=(others=>'0');
 end WB_Arch;

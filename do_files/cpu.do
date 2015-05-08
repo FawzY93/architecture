@@ -78,4 +78,12 @@ run
 force -freeze sim:/cpu/in_port 00110001 0
 force -freeze sim:/cpu/rst 0 0
 run
+run
+run
+force -freeze sim:/cpu/in_port 00000101 0
+run
+force -freeze sim:/cpu/in_port 01000110 0
+run
+force -freeze sim:/cpu/in_port 01000110 0
+run
 
