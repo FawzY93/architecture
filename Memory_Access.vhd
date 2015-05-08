@@ -69,8 +69,6 @@ end  component ;
 	---------------------------------------------
 	Mem_Out(40 downto 33)<=(others=>'0');
   	------------------------------------------------------------
-	 
-    -----------------------------------
 	Forward_From_MA(7 downto 0)<=dataout;
 	Forward_From_MA(15 downto 8)<=aluOrSp;
 	Forward_From_MA(16)<=sp;
