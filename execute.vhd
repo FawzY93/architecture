@@ -5,7 +5,9 @@ entity execute is
   port( idex_output: in std_logic_vector(40 downto 0);
         exmem_input: out std_logic_vector(40 downto 0);
         in_flags: in std_logic_vector(3 downto 0);
-        out_flags: out std_logic_vector(3 downto 0)
+        out_flags: out std_logic_vector(3 downto 0);
+        Forward_from_execute:out std_logic_vector(31 downto 0)
+
         );
 end execute;
 
@@ -50,10 +52,16 @@ architecture execute_arch of execute is
   exmem_input(28)<= idex_output(28);
   exmem_input(29)<= idex_output(29);
   exmem_input(30)<= idex_output(30);
-	exmem_input(31)<= idex_output(31);
+  exmem_input(31)<= idex_output(31);
   exmem_input(32)<= idex_output(32);
   -----------------------------------------------------------------
   exmem_input(40 downto 33)<=(others=>'0');
+  --------------------------------------------------------
+	Forward_from_execute(7 downto 0)<=result;
+  Forward_from_execute(25)<=idex_output(25);
+  Forward_from_execute(27 downto 26)<=idex_output(27 downto 26);
+  Forward_from_execute(30)<=idex_output(30);
+  Forward_from_execute(31)<=idex_output(31);
   -------------------------------------------------------------------
 	
   ALSU_module: ALSU port map(s1,s2,oper,cin,result,tmp_flags);
