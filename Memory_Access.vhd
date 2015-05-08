@@ -68,8 +68,8 @@ end  component ;
 	Mem_Out(40 downto 33)<=(others=>'0');
   	------------------------------------------------------------
 	 
-	 write_en<= ls and MA and not NOP ;
-	 read_en<=  not ls and MA and not NOP;   
+	 write_en<= not ls and MA and not NOP ;
+	 read_en<=  ls and MA and not NOP;   
    D_mem: data_memory port map (clk,read_en,write_en,result,data_in,dataout);
 
 
