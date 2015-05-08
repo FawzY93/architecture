@@ -14,6 +14,7 @@ architecture execute_arch of execute is
     port(a1,a2 :in std_logic_vector(7 downto 0);
      s :in std_logic_vector(3 downto 0);
      Cin :in std_logic;
+     in_flags : in std_logic_vector(3 downto 0);
      outt :out std_logic_vector(7 downto 0);
      flags:out std_logic_vector(3 downto 0) --(0) OV ,(1) C ,(2) Z ,(3) N
      );
@@ -56,7 +57,7 @@ architecture execute_arch of execute is
   exmem_input(40 downto 33)<=(others=>'0');
   -------------------------------------------------------------------
 	
-  ALSU_module: ALSU port map(s1,s2,oper,cin,result,tmp_flags);
+  ALSU_module: ALSU port map(s1,s2,oper,cin,in_flags, result,tmp_flags);
 
   -------------------------------------------------------------------
 

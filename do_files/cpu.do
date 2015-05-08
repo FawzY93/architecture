@@ -43,6 +43,11 @@ sim:/cpu/memwb_input \
 sim:/cpu/memwb_output \
 sim:/cpu/WB_Out
 
+add wave -position end  sim:/cpu/Decode_MODULE/Reg_file_MODUL/r00
+add wave -position end  sim:/cpu/Decode_MODULE/Reg_file_MODUL/r11
+add wave -position end  sim:/cpu/Decode_MODULE/Reg_file_MODUL/r22
+add wave -position end  sim:/cpu/Decode_MODULE/Reg_file_MODUL/r33
+
 add wave -position 2  sim:/cpu/in_port
 add wave -position 3  sim:/cpu/out_port
 

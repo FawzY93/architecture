@@ -33,8 +33,8 @@ end component;
   else t;
   f<=temp;
 
-  FLAGSA(0)<= temp(7) xor (aa(7) xnor invb(7));  -- overflow
-  FLAGSA(1)<=not tempc when s(1)='1 and s(0)='0' and cin='1'
+  FLAGSA(0)<= (temp(7) xor aa(7)) and (aa(7) xnor invb(7));  -- overflow
+  FLAGSA(1)<=not tempc when (s="10" and cin='1')or (s="11" and cin='0')
   else tempc; -- carry
   FLAGSA(2)<='1' when temp= "00000000" -- zero
   else '0';
