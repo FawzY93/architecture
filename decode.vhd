@@ -46,6 +46,7 @@ begin
  opcode <= From_Fetch(7 downto 4);
 
   PC_In <= From_Fetch(7 downto 0) when From_Fetch(15 downto 8) = "00000000"
+  else From_Fetch(15 downto 8) when sources_in_execution_MA = '1' or sp_hazard_in_sources = '1'
     else From_Fetch(15 downto 8) + 1;
     
     -- forward implement
@@ -89,7 +90,7 @@ begin
   pc_minus_1 <= From_Fetch(15 downto 8) - 1;
   no_op_fetch <= pc_minus_1&"00000000";
 
-  fetch_final <=  no_op_fetch when sources_in_execution_MA = '1' and sp_hazard_in_sources = '1'
+  fetch_final <=  no_op_fetch when sources_in_execution_MA = '1' or sp_hazard_in_sources = '1'
     else From_Fetch;
 
   -----------------forward from execute got 1WB(31),1 NOP(30),2 rd(27-26) , 1 MA(25) ,8 result(7-0)

@@ -72,9 +72,10 @@ end  component ;
 	Forward_From_MA(7 downto 0)<=dataout;
 	Forward_From_MA(15 downto 8)<=aluOrSp;
 	Forward_From_MA(16)<=sp;
+	Forward_From_MA(25 downto 17)<=(others=>'0');
 	Forward_From_MA(27 downto 26)<=Rd;
 	Forward_From_MA(25)<=MA;
-	
+	Forward_From_MA(28)<=sp;
 	Forward_From_MA(30)<=Mem_In(30);
 	Forward_From_MA(31)<=Mem_In(31);
      write_en<= not ls and MA and not NOP ;

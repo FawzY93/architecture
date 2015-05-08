@@ -65,7 +65,6 @@ force -freeze sim:/cpu/rst 0 0
 run
 run
 run
-run
 force -freeze sim:/cpu/in_port 00000101 0
 run
-run
+
