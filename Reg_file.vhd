@@ -31,9 +31,9 @@ end component;
   -- W,RD_from_wb,sp_from_wb,new_stack_value,Datain 
    Datain<=From_wb(7 downto 0);
    new_stack_value<=From_wb(15 downto 8);
-   sp<=From_wb(16);
-   Rd<=From_wb(18 downto 17);
-   W<=From_wb(19);
+   sp<=From_wb(28);
+   Rd<=From_wb(27 downto 26);
+   W<=From_wb(31);
 
    --------------------------------------------------
    R0_en <= '1' when Rd="00" and W='1' 
