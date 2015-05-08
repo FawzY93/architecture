@@ -42,5 +42,12 @@ WB_Out(30)<=WB_In(30);
 WB_Out(31)<=W;
 out_port<=WB_In(15 downto 8) when  WB_In(32)='1'
 else "00000000";
-WB_Out(40 downto 20)<=(others=>'0');
+
+WB_Out(16) <= WB_In(16);
+WB_Out(25) <= WB_In(25);
+WB_Out(29) <= WB_In(29);
+WB_Out(32) <= WB_In(32);
+
+WB_Out(24 downto 17)<=(others=>'0');
+WB_Out(40 downto 33)<=(others=>'0');
 end WB_Arch;
