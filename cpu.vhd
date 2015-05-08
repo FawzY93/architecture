@@ -58,8 +58,7 @@ architecture cpu_arch of cpu is
 		out_port:out std_logic_vector(7 downto 0)
 		);
 	end component;
-signal cin,W,R,sp_from_cu,sp_from_wb,LS,notclk,sp_out ,MA,NOP,ifid_enable,Do				Done <= '0';
-ne:std_logic;
+signal cin,W,R,sp_from_cu,sp_from_wb,LS,notclk,sp_out ,MA,NOP,ifid_enable,Done:std_logic;
   signal Rs1,Rs2,Rd_from_cu,Rd_from_wb	  :std_logic_vector(1 downto 0);
   signal opr,CF,FLAGS_IN,FLAGS_OUT		  :std_logic_vector(3 downto 0);
   signal Datain,new_stack_value,old_stack_value,S1,S2,ALSU_OUT,result_out,sp_data_out,PC_In,PC_Out,PC_In_Fetch :std_logic_vector(7 downto 0);
