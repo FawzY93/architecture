@@ -58,6 +58,7 @@ end  component ;
 	-----------------------------------------
 	Mem_Out(25)<=MA;
 	Mem_Out(27 downto 26)<=Rd;
+	Mem_Out(28)<=sp;
   	Mem_Out(29)<=LS;
     Mem_Out(21)<=Mem_In(21);
     Mem_Out(30)<=Mem_In(30);
