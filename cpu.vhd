@@ -49,7 +49,8 @@ architecture cpu_arch of cpu is
 	port (
 		clk : in std_logic;
 		Mem_In: in std_logic_vector(40 downto 0);
-		Mem_Out:out std_logic_vector(40 downto 0)
+		Mem_Out:out std_logic_vector(40 downto 0);
+		Forward_From_MA:out std_logic_vector(31 downto 0)
 		);
 	end component;
 	component Write_Back  is
