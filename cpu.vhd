@@ -58,17 +58,19 @@ architecture cpu_arch of cpu is
 		out_port:out std_logic_vector(7 downto 0)
 		);
 	end component;
-signal cin,W,R,sp_from_cu,sp_from_wb,LS,notclk,sp_out ,MA,NOP,ifid_enable,Done:std_logic;
+signal cin,W,R,sp_from_cu,sp_from_wb,LS,notclk,sp_out ,MA,NOP,ifid_enable,Do				Done <= '0';
+ne:std_logic;
   signal Rs1,Rs2,Rd_from_cu,Rd_from_wb	  :std_logic_vector(1 downto 0);
   signal opr,CF,FLAGS_IN,FLAGS_OUT		  :std_logic_vector(3 downto 0);
   signal Datain,new_stack_value,old_stack_value,S1,S2,ALSU_OUT,result_out,sp_data_out,PC_In,PC_Out,PC_In_Fetch :std_logic_vector(7 downto 0);
   signal ifid_input,ifid_output :std_logic_vector(15 downto 0);
+  signal ifid_input_temp,ifid_output_temp :std_logic_vector(15 downto 0);
   signal idex_input,idex_output, exmem_input,exmem_output,memwb_input,memwb_output,WB_Out :std_logic_vector(40 downto 0);
-  
+  signal idex_input_temp,idex_output_temp, exmem_input_temp,exmem_output_temp,memwb_input_temp,memwb_output_temp,WB_Out_temp :std_logic_vector(40 downto 0);
   begin
   
   notclk<=not clk;
-	ifid_enable<=not NOP;
+  ifid_enable<=not NOP;
   FLAG_REG_MODULE:my_nreg generic map(4) port map(clk,rst,'1',FLAGS_IN,FLAGS_OUT);
 	------------------------------------FETCH----------------------------------------------
   PC_REG_MODULE:my_nreg generic map(8) port map(clk,rst,'1',PC_In,PC_Out);
@@ -76,28 +78,39 @@ signal cin,W,R,sp_from_cu,sp_from_wb,LS,notclk,sp_out ,MA,NOP,ifid_enable,Done:s
   PC_In_Fetch <= "00000000" when rst = '1'
     else PC_In;
 
-	Fetch_MODULE:fetch port map(clk,'1',PC_In_Fetch,ifid_input);
-	IFID_REG_MODULE:my_nreg generic map(16) port map(clk, rst, '1', ifid_input, ifid_output);
+	Fetch_MODULE:fetch port map(clk,'1',PC_In_Fetch,ifid_input_temp);
+	ifid_input<=(others=>'0')when rst='1'
+	else ifid_input_temp;
+	IFID_REG_MODULE:my_nreg generic map(16) port map(clk, rst, '1', ifid_input, ifid_output_temp);
   --  8 pc & 8 instrucion  
   
   ------------------------------------DECODE----------------------------------------------
+  ifid_output<=(others=>'0')when rst='1'
+	else ifid_output_temp;
+  Decode_MODULE:decode port map(notclk,rst,ifid_output,WB_Out,in_port,idex_input_temp, PC_In);
+  idex_input<=(others=>'0')when rst='1'
+	else idex_input_temp;
 
-  Decode_MODULE:decode port map(notclk,rst,ifid_output,WB_Out,in_port,idex_input, PC_In);
-
-  IDEX_REG_MODULE:my_nreg generic map(41) port map(clk, rst, '1', idex_input, idex_output);
-  
+  IDEX_REG_MODULE:my_nreg generic map(41) port map(clk, rst, '1', idex_input, idex_output_temp);
+  idex_output<=(others=>'0')when rst='1'
+	else idex_output_temp;
   ------------------------------------EXECUTE----------------------------------------------
-  EXECUTE_MODULE:execute port map(idex_output,exmem_input,FLAGS_OUT,FLAGS_IN);
-  
-  EXMEM_REG_MODULE:my_nreg generic map(41) port map(clk, rst, '1', exmem_input, exmem_output);
-  
+  EXECUTE_MODULE:execute port map(idex_output,exmem_input_temp,FLAGS_OUT,FLAGS_IN);
+  exmem_input<=(others=>'0')when rst='1'
+	else exmem_input_temp;
+  EXMEM_REG_MODULE:my_nreg generic map(41) port map(clk, rst, '1', exmem_input, exmem_output_temp);
+  exmem_output<=(others=>'0')when rst='1'
+	else exmem_output_temp;
   ------------------------------------MEMORY ACCESS----------------------------------------------
-  MEMORY_ACCESS_MODULE:Memory_Access port map(clk,exmem_output,memwb_input);
-
-  MEMWB_REG_MODULE:my_nreg generic map(41) port map(clk, rst, '1', memwb_input, memwb_output);
-  
+  MEMORY_ACCESS_MODULE:Memory_Access port map(clk,exmem_output,memwb_input_temp);
+  memwb_input<=(others=>'0')when rst='1'
+	else memwb_input_temp;
+  MEMWB_REG_MODULE:my_nreg generic map(41) port map(clk, rst, '1', memwb_input, memwb_output_temp);
+  memwb_output<=(others=>'0')when rst='1'
+	else memwb_output_temp;
 	------------------------------------WRITE BACK----------------------------------------------
-	WRITE_BACK_MODULE:Write_Back port map(clk,memwb_output,WB_Out,out_port);
-  
+	WRITE_BACK_MODULE:Write_Back port map(clk,memwb_output,WB_Out_temp,out_port);
+  	WB_Out<=(others=>'0')when rst='1'
+	else WB_Out_temp;
 
 end cpu_arch;
