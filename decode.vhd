@@ -41,11 +41,15 @@ signal S1,S2,stack_value, stack_reg_value, inport_out,outport_out,reg_s1, reg_s2
 signal Rs1,Rs2	: std_logic_vector(1 downto 0);
 signal fetch_final,no_op_fetch: std_logic_vector(15 downto 0);
 signal opcode: std_logic_vector(3 downto 0);
-signal sp_hazard_in_sources, sources_in_execution_MA : std_logic;
+signal sp_hazard_in_sources, sources_in_execution_MA, valid_ra : std_logic;
 begin
- Rs2<=From_Fetch(1 downto 0);
- Rs1<=From_Fetch(3 downto 2);
- opcode <= From_Fetch(7 downto 4);
+  Rs2<=From_Fetch(1 downto 0);
+  Rs1<=From_Fetch(3 downto 2);
+  opcode <= From_Fetch(7 downto 4);
+
+  -- 1 if the value of ra indicate to a register (two operand operation)
+  valid_ra <= '1' when opcode = "0010" or opcode ="0011" or opcode ="0100" or opcode ="0101" or opcode ="1010" or opcode = "1110"
+    else '0';
 
   PC_In <= From_Fetch(7 downto 0) when From_Fetch(15 downto 8) = "00000000"
   else From_Fetch(15 downto 8) when sources_in_execution_MA = '1' or sp_hazard_in_sources = '1'
@@ -85,10 +89,10 @@ begin
   Reg_file_MODUL: Reg_file port map(notclk, rst, '1', Rs1, Rs2, reg_s1, reg_s2, stack_reg_value, From_wb);
 
     --stall if one of my sources in execution and it's MA
-  sources_in_execution_MA <= '1' when (Forward_from_execute(27 downto 26) = RS1 or Forward_from_execute(27 downto 26) = RS2) and Forward_from_execute(31) = '1' and Forward_from_execute(25) = '1' 
+  sources_in_execution_MA <= '1' when (Forward_from_execute(27 downto 26) = RS2 or (Forward_from_execute(27 downto 26) = RS1 and valid_ra = '1')) and Forward_from_execute(31) = '1' and Forward_from_execute(25) = '1'
     else '0';
     -- stall if push or pop or source(1 or 2) = r3 and sp_flag in excute = 1
-  sp_hazard_in_sources <= '1' when(( RS1 = "11" or RS2 = "11" or (opcode = "0111" and RS1(1) = '0')) and Forward_from_execute(28) = '1')
+  sp_hazard_in_sources <= '1' when(( RS2 = "11" or (RS1 = "11" and valid_ra = '1') or  (opcode = "0111" and RS1(1) = '0')) and Forward_from_execute(28) = '1')
       else '0';
   From_decode<='1' when opcode="1100"
   else '0';
