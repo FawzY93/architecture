@@ -5,7 +5,8 @@ entity cu is
     s1,s2,in_port,sp: in std_logic_vector(7 downto 0);
 		ifid_output: in std_logic_vector(15 downto 0);
     idex_input:out std_logic_vector(40 downto 0);
-    PC_value: in std_logic_vector(7 downto 0)
+    PC_value: in std_logic_vector(7 downto 0);
+    restor_flags: in std_logic
 		);
 end cu;
 architecture cu_arch of cu is
@@ -72,7 +73,7 @@ architecture cu_arch of cu is
   idex_input(31) <= WB;
   idex_input(32) <= out_port_en;
   idex_input(33) <= PC_loader;
-  idex_input(34) <= '0';
+  idex_input(34) <= restor_flags;
   idex_input(35) <= '0';
   idex_input(36) <= '0';
   idex_input(37) <= '0';
