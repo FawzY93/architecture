@@ -38,8 +38,8 @@ architecture cpu_arch of cpu is
     ea_imm : in std_logic_vector(7 downto 0);
     flags_in: in std_logic_vector(3 downto 0);
     From_decode: out std_logic;
-    PC_loader_ex , PC_loader_MA: in std_logic
-
+    PC_loader_ex , PC_loader_MA: in std_logic;
+    save_flags, pop_pc: out std_logic
 		);
 	end component;
 

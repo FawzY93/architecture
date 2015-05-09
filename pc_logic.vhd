@@ -6,7 +6,7 @@ use ieee.numeric_std.all;
 entity pc_logic is
   port(
     stall: in std_logic;
-    From_Fetch :in std_logic_vector(15 downto 0);
+    From_Fetch :in std_logic_vector(18 downto 0);
     in_flags: in std_logic_vector(3 downto 0);
     S1,S2 : in std_logic_vector(7 downto 0);
     PC_In :out std_logic_vector(7 downto 0);
@@ -15,13 +15,15 @@ entity pc_logic is
 end pc_logic;
 architecture pc_logic_arch of pc_logic is
   signal opcode:std_logic_vector(3 downto 0);
-  signal jz,jn,jc,jv,jmp, call: std_logic;
+  signal jz,jn,jc,jv,jmp, call, push_pc: std_logic;
   signal Rs1, Rs2 : std_logic_vector(1 downto 0);
   begin
 
   Rs2<=From_Fetch(1 downto 0);
   Rs1<=From_Fetch(3 downto 2);
   opcode <= From_Fetch(7 downto 4);
+  push_pc <= From_Fetch(16);
+
   jz <= '1' when opcode = "1001" and Rs1 = "00" and in_flags(2) = '1'
   else '0';
 
@@ -48,6 +50,9 @@ architecture pc_logic_arch of pc_logic is
     else From_wb(7 downto 0) when From_wb(33) = '1'
     -- loop
     else s2 when s1 /= "00000001" and opcode = "1010"
+    -- interrupt
+    else "00000001" when call = '1' and push_pc = '1'
+
     else From_Fetch(15 downto 8) + 1;
 
 end pc_logic_arch;
