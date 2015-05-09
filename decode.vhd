@@ -15,6 +15,7 @@ entity decode is
 		Forward_from_execute:in std_logic_vector(31 downto 0);						
 		Forward_From_MA:in std_logic_vector(31 downto 0);
 		ea_imm : in std_logic_vector(7 downto 0);
+    flags_in: in std_logic_vector(3 downto 0);
     From_decode: out std_logic
     );
 end decode;
@@ -53,6 +54,8 @@ component pc_logic is
   port(
     stall: in std_logic;
     From_Fetch :in std_logic_vector(15 downto 0);
+    in_flags: in std_logic_vector(3 downto 0);
+    S2 : in std_logic_vector(7 downto 0);
     PC_In :out std_logic_vector(7 downto 0)
   );
 end component;
@@ -79,7 +82,7 @@ begin
     -- forward implement
   GET_OPERAND_MODUL: get_operand port map(From_Fetch, From_wb, Forward_from_execute, Forward_From_MA, reg_s1, reg_s2, stack_reg_value, ea_imm, S1, S2, stack_value);
 
-  PC_LOGIC_MODULE: pc_logic port map(stall, From_Fetch, PC_In);
+  PC_LOGIC_MODULE: pc_logic port map(stall, From_Fetch, flags_in, s2, PC_In);
     --stall if one of my sources in execution and it's MA
   sources_in_execution_MA <= '1' when (Forward_from_execute(27 downto 26) = Rs2 or (Forward_from_execute(27 downto 26) = Rs1 and valid_ra = '1')) and Forward_from_execute(31) = '1' and Forward_from_execute(25) = '1'
     else '0';

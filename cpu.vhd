@@ -34,7 +34,8 @@ architecture cpu_arch of cpu is
     PC_In: out std_logic_vector(7 downto 0);
 		Forward_from_execute:in std_logic_vector(31 downto 0);
 		Forward_From_MA:in std_logic_vector(31 downto 0);
-    ea_imm : in std_logic_vector(7 downto 0);   
+    ea_imm : in std_logic_vector(7 downto 0);
+    flags_in: in std_logic_vector(3 downto 0);
     From_decode: out std_logic
 		);
 	end component;
@@ -91,7 +92,7 @@ signal notclk,From_decode:std_logic;
   ------------------------------------DECODE----------------------------------------------
   ifid_output<=(others=>'0')when rst='1'
 	else ifid_output_temp;
-  Decode_MODULE:decode port map(notclk,rst,ifid_output,WB_Out,in_port,idex_input_temp, PC_In, Forward_from_execute, Forward_From_MA,ea_imm,From_decode);
+  Decode_MODULE:decode port map(notclk,rst,ifid_output,WB_Out,in_port,idex_input_temp, PC_In, Forward_from_execute, Forward_From_MA,ea_imm, FLAGS_IN, From_decode);
   idex_input<=(others=>'0')when rst='1'
 	else idex_input_temp;
 
