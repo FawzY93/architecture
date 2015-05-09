@@ -64,14 +64,16 @@ architecture cpu_arch of cpu is
 	component Write_Back  is
 	port (
 		clk : in std_logic;
+    WB_In: in std_logic_vector(40 downto 0);
+    WB_Out:out std_logic_vector(40 downto 0);
+    out_port:out std_logic_vector(7 downto 0);
+    Memory_Flags: out std_logic_vector(4 downto 0)
 
-		WB_In: in std_logic_vector(40 downto 0);
-		WB_Out:out std_logic_vector(40 downto 0);
-		out_port:out std_logic_vector(7 downto 0)
 		);
 	end component;
 signal PC_loader_ex , PC_loader_MA, notclk,From_decode,save_flags,pop_pc:std_logic;
   signal FLAGS_IN,FLAGS_OUT		  :std_logic_vector(3 downto 0);
+  signal Memory_Flags:  std_logic_vector(4 downto 0);
   signal PC_In,PC_Out,PC_In_Fetch,ea_imm :std_logic_vector(7 downto 0);
   signal ifid_input,ifid_output :std_logic_vector(18 downto 0);
   signal ifid_input_temp,ifid_output_temp :std_logic_vector(18 downto 0);
@@ -119,7 +121,7 @@ signal PC_loader_ex , PC_loader_MA, notclk,From_decode,save_flags,pop_pc:std_log
   memwb_output<=(others=>'0')when rst='1'
 	else memwb_output_temp;
 	------------------------------------WRITE BACK----------------------------------------------
-	WRITE_BACK_MODULE:Write_Back port map(clk,memwb_output,WB_Out_temp,out_port);
+	WRITE_BACK_MODULE:Write_Back port map(clk,memwb_output,WB_Out_temp,out_port,Memory_Flags);
   	WB_Out<=(others=>'0')when rst='1'
 	else WB_Out_temp;
 
