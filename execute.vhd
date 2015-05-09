@@ -6,8 +6,8 @@ entity execute is
         exmem_input: out std_logic_vector(40 downto 0);
         in_flags: in std_logic_vector(3 downto 0);
         out_flags: out std_logic_vector(3 downto 0);
-        Forward_from_execute:out std_logic_vector(31 downto 0)
-
+        Forward_from_execute:out std_logic_vector(31 downto 0);
+        PC_loader_ex :out std_logic
         );
 end execute;
 
@@ -39,6 +39,7 @@ architecture execute_arch of execute is
   sp <= idex_output(28);
   LS <= idex_output(29);
   NOP<= idex_output(30);
+  PC_loader_ex <= idex_output(33);
 	-- O/P
 	--1no_op & 1LS & 1sp & 2rd & 1MA& 9 bits non use  & 8s2 & 8result
   exmem_input(7 downto 0)<= result;
@@ -55,8 +56,9 @@ architecture execute_arch of execute is
   exmem_input(30)<= idex_output(30);
   exmem_input(31)<= idex_output(31);
   exmem_input(32)<= idex_output(32);
+  exmem_input(33)<= idex_output(33);
   -----------------------------------------------------------------
-  exmem_input(40 downto 33)<=(others=>'0');
+  exmem_input(40 downto 34)<=(others=>'0');
   --------------------------------------------------------
 	Forward_from_execute(7 downto 0)<=result;
   Forward_from_execute(31 downto 8)<=idex_output(31 downto 8);

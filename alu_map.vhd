@@ -9,7 +9,8 @@ entity alu_map is
         -- return calculate ALU parameter
         a,b :out std_logic_vector(7 downto 0);
         cin :out std_logic;
-        oper,change_flags:out std_logic_vector(3 downto 0)
+        oper,change_flags:out std_logic_vector(3 downto 0);
+        PC_value :in std_logic_vector(7 downto 0)
         );
 end alu_map;
 
@@ -49,6 +50,8 @@ architecture alu_map_arch of alu_map is
         else not s2 when opcode = "1000" and ra = "01" --negative = not + 1
         else s2 when opcode = "1000" and ra = "10"  
         else s2 when opcode = "1000" and ra = "11"
+        else s1 when opcode = "1000" and ra = "11" -- loop like decrement
+        else sp when (opcode = "1011" and ra = "10") or (opcode = "1011" and ra = "01")  -- call & ret
         else s1;
 
     -- define second source
@@ -61,6 +64,8 @@ architecture alu_map_arch of alu_map is
         else zero when opcode = "0110"
         else s2 when opcode = "0111"  --one operand operation
         else zero when opcode = "1000" --one operand operation
+        else zero when opcode = "1010" -- loop like decrement 
+        else PC_value when (opcode = "1011" and ra = "10") or (opcode = "1011" and ra = "01")  -- call & ret
         else s2;
 
     -- define cin
@@ -79,6 +84,11 @@ architecture alu_map_arch of alu_map is
         else '1' when opcode = "1000" and ra = "10"  --inc
         else '0' when opcode = "1000" and ra = "11"  --dec
         else '0' when opcode(3 downto 2) = "11"  -- LDM LDD STD LDI STI
+
+        else '0' when opcode = "1011" and ra = "01"  --call
+        else '1' when opcode = "1011" and ra = "10"  --return 
+
+        else '0' when opcode = "1010"  -- loop like dec
         else '0';
 
     -- define the operation
@@ -100,7 +110,13 @@ architecture alu_map_arch of alu_map is
         else "0000" when opcode = "1000" and ra = "10"  --inc
         else "0011" when opcode = "1000" and ra = "11"  --dec
         else "0000" when opcode(3 downto 2) = "11"                -- LDM LDD STD LDI STI
-         else "1111";
+        
+        else "0000" when opcode = "1011" and ra = "01"  -- call
+        else "0000" when opcode = "1011" and ra = "10"  -- ret
+        
+        else "0011" when opcode = "1010"   -- loop to decrement
+        
+        else "1111";
 
 
     -- save if this operation change in the flags or not
