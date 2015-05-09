@@ -13,8 +13,10 @@ entity decode is
 		to_idex	:out std_logic_vector(40 downto 0);
     PC_In :out std_logic_vector(7 downto 0);
 		Forward_from_execute:in std_logic_vector(31 downto 0);						
-		Forward_From_MA:in std_logic_vector(31 downto 0)
-		);
+		Forward_From_MA:in std_logic_vector(31 downto 0);
+		ea_imm : in std_logic_vector(7 downto 0);
+    From_decode: out std_logic
+    );
 end decode;
 
 architecture decode_arch of decode is
@@ -51,13 +53,15 @@ begin
     
     -- forward implement
         -- from excute
-    S1 <= Forward_from_execute(7 downto 0) when Forward_from_execute(27 downto 26) = Rs1 and Forward_from_execute(31) = '1'
+    S1 <= Forward_from_execute(7 downto 0) when Forward_from_execute(27 downto 26) = Rs1 and Forward_from_execute(31) = '1' and opcode /="1100"
       --from MA and it's MA operation
-      else Forward_From_MA(7 downto 0) when Forward_From_MA(27 downto 26) = Rs1 and Forward_From_MA(31) = '1' and Forward_From_MA(25) = '1'
+      else Forward_From_MA(7 downto 0) when Forward_From_MA(27 downto 26) = Rs1 and Forward_From_MA(31) = '1' and Forward_From_MA(25) = '1' and opcode /="1100"
       -- from MA and it's NOT Ma operation 
-      else Forward_From_MA(15 downto 8) when Forward_From_MA(27 downto 26) = Rs1 and Forward_From_MA(31) = '1' and Forward_From_MA(25) = '0'
+      else Forward_From_MA(15 downto 8) when Forward_From_MA(27 downto 26) = Rs1 and Forward_From_MA(31) = '1' and Forward_From_MA(25) = '0' and opcode /="1100"
       -- from WA 
-      else From_wb(7 downto 0) when From_wb(27 downto 26) = Rs1 and From_wb(31) = '1'
+      else From_wb(7 downto 0) when From_wb(27 downto 26) = Rs1 and From_wb(31) = '1' and opcode /="1100"
+      --LDM LDD STD
+      else ea_imm when opcode ="1100"
       --from register file      
       else reg_s1;
         
@@ -81,12 +85,13 @@ begin
   Reg_file_MODUL: Reg_file port map(notclk, rst, '1', Rs1, Rs2, reg_s1, reg_s2, stack_reg_value, From_wb);
 
     --stall if one of my sources in execution and it's MA
-  sources_in_execution_MA <= '1' when (Forward_from_execute(27 downto 26) = RS1 or Forward_from_execute(27 downto 26) = RS1) and Forward_from_execute(31) = '1' and Forward_from_execute(25) = '1' 
+  sources_in_execution_MA <= '1' when (Forward_from_execute(27 downto 26) = RS1 or Forward_from_execute(27 downto 26) = RS2) and Forward_from_execute(31) = '1' and Forward_from_execute(25) = '1' 
     else '0';
     -- stall if push or pop or source(1 or 2) = r3 and sp_flag in excute = 1
   sp_hazard_in_sources <= '1' when(( RS1 = "11" or RS2 = "11" or (opcode = "0111" and RS1(1) = '0')) and Forward_from_execute(28) = '1')
       else '0';
-  
+  From_decode<='1' when opcode="1100"
+  else '0';
   pc_minus_1 <= From_Fetch(15 downto 8) - 1;
   no_op_fetch <= pc_minus_1&"00000000";
 

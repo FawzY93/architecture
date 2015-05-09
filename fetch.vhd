@@ -5,10 +5,10 @@ use ieee.numeric_std.all;
 Entity fetch is
 port(
 		 clk 	:in std_logic;
-		 R 		:in std_logic;
 		 PC		:in std_logic_vector(7 downto 0);
+		 From_decode:in std_logic; --for L operations
 		 Inst_pc:out std_logic_vector(15 downto 0);
-		 Done 	:out std_logic
+		 ea_imm : out std_logic_vector(7 downto 0)
 		 );
 end fetch;
 architecture f_arch of fetch is
@@ -18,16 +18,15 @@ architecture f_arch of fetch is
 	signal dataout: std_logic_vector(7 downto 0); --instruction
 	begin
 	Inst_pc(15 downto 8)<= PC;
-	Inst_pc(7 downto 0)<= dataout;
+	Inst_pc(7 downto 0)<= dataout when From_decode='0'
+	else (others=>'0');
+	ea_imm<=dataout;
+	
 		process(clk) is
 		  Begin
-			if falling_edge(clk) then  
-			  if (R = '1') then
-				dataout <= ram(to_integer(unsigned(PC)));
-				Done <= '1';
-			  else
-				Done <= '0';
-			  end if;
+			if falling_edge(clk) then 
+				dataout <= ram(to_integer(unsigned(PC)));	
+			
 			end if;
 			
 		end process;

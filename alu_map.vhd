@@ -78,6 +78,7 @@ architecture alu_map_arch of alu_map is
         else '1' when opcode = "1000" and ra = "01" --negative = not + 1
         else '1' when opcode = "1000" and ra = "10"  --inc
         else '0' when opcode = "1000" and ra = "11"  --dec
+        else '0' when opcode(3 downto 2) = "11"  -- LDM LDD STD LDI STI
         else '0';
 
     -- define the operation
@@ -98,7 +99,8 @@ architecture alu_map_arch of alu_map is
         else "0000" when opcode = "1000" and ra = "01" --negative = not + 1
         else "0000" when opcode = "1000" and ra = "10"  --inc
         else "0011" when opcode = "1000" and ra = "11"  --dec
-        else "1111";
+        else "0000" when opcode(3 downto 2) = "11"                -- LDM LDD STD LDI STI
+         else "1111";
 
 
     -- save if this operation change in the flags or not

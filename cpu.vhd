@@ -16,11 +16,12 @@ architecture cpu_arch of cpu is
   end component;
   	component fetch is
 	port(
-		 clk 	:in std_logic;
-		 R 		:in std_logic;
-		 PC		:in std_logic_vector(7 downto 0);
-		 Inst_pc:out std_logic_vector(15 downto 0)
-		 --Done 	:out std_logic
+     clk  :in std_logic;
+     PC   :in std_logic_vector(7 downto 0);
+     From_decode:in std_logic; --for L operations
+     Inst_pc:out std_logic_vector(15 downto 0);
+     ea_imm : out std_logic_vector(7 downto 0)
+          --Done 	:out std_logic
 		 );
 	end component;
   	component decode is
@@ -32,8 +33,9 @@ architecture cpu_arch of cpu is
 		to_idex	:out std_logic_vector(40 downto 0);
     PC_In: out std_logic_vector(7 downto 0);
 		Forward_from_execute:in std_logic_vector(31 downto 0);
-		Forward_From_MA:in std_logic_vector(31 downto 0)
-
+		Forward_From_MA:in std_logic_vector(31 downto 0);
+    ea_imm : in std_logic_vector(7 downto 0);   
+    From_decode: out std_logic
 		);
 	end component;
 
@@ -62,9 +64,9 @@ architecture cpu_arch of cpu is
 		out_port:out std_logic_vector(7 downto 0)
 		);
 	end component;
-signal notclk:std_logic;
+signal notclk,From_decode:std_logic;
   signal FLAGS_IN,FLAGS_OUT		  :std_logic_vector(3 downto 0);
-  signal PC_In,PC_Out,PC_In_Fetch :std_logic_vector(7 downto 0);
+  signal PC_In,PC_Out,PC_In_Fetch,ea_imm :std_logic_vector(7 downto 0);
   signal ifid_input,ifid_output :std_logic_vector(15 downto 0);
   signal ifid_input_temp,ifid_output_temp :std_logic_vector(15 downto 0);
   signal Forward_From_MA,Forward_from_execute:std_logic_vector(31 downto 0);
@@ -80,7 +82,7 @@ signal notclk:std_logic;
   PC_In_Fetch <= "00000000" when rst = '1'
     else PC_In;
 
-	Fetch_MODULE:fetch port map(clk,'1',PC_In_Fetch,ifid_input_temp);
+	Fetch_MODULE:fetch port map(clk,PC_In_Fetch,From_decode,ifid_input_temp,ea_imm);
 	ifid_input<=(others=>'0')when rst='1'
 	else ifid_input_temp;
 	IFID_REG_MODULE:my_nreg generic map(16) port map(clk, rst, '1', ifid_input, ifid_output_temp);
@@ -89,7 +91,7 @@ signal notclk:std_logic;
   ------------------------------------DECODE----------------------------------------------
   ifid_output<=(others=>'0')when rst='1'
 	else ifid_output_temp;
-  Decode_MODULE:decode port map(notclk,rst,ifid_output,WB_Out,in_port,idex_input_temp, PC_In, Forward_from_execute, Forward_From_MA);
+  Decode_MODULE:decode port map(notclk,rst,ifid_output,WB_Out,in_port,idex_input_temp, PC_In, Forward_from_execute, Forward_From_MA,ea_imm,From_decode);
   idex_input<=(others=>'0')when rst='1'
 	else idex_input_temp;
 

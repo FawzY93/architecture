@@ -58,7 +58,8 @@ architecture execute_arch of execute is
   -----------------------------------------------------------------
   exmem_input(40 downto 33)<=(others=>'0');
   --------------------------------------------------------
-	Forward_from_execute<=idex_output(31 downto 0);
+	Forward_from_execute(7 downto 0)<=result;
+  Forward_from_execute(31 downto 8)<=idex_output(31 downto 8);
   -------------------------------------------------------------------
 	
   ALSU_module: ALSU port map(s1,s2,oper,cin,in_flags, result,tmp_flags);

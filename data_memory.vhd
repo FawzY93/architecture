@@ -17,7 +17,7 @@ end entity data_memory;
 architecture syncrama of data_memory is
    type ram_type is array(0 to 255) of std_logic_vector(7 downto 0);
 
-	signal ram : ram_type ;
+	signal ram : ram_type:=(others=>"00000000") ;
 
 begin
 process(clk) is

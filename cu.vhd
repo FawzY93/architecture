@@ -30,12 +30,12 @@ architecture cu_arch of cu is
   ra <= ifid_output(3 downto 2);
   rb <= ifid_output(1 downto 0);
 
-  MA <= '1' when opcode = "0111" and ra(1) = '0'
+  MA <= '1' when (opcode = "0111" and ra(1) = '0' ) or (opcode="1100" and  ra/="00") or (opcode="1101")  or (opcode="1110")  
     else '0';
   carry_oper <= '1' when opcode = "0110" and ra(1) = '1'
     else '0';
 
-  WB <= '0' when opcode = "0000" or carry_oper = '1' or  (opcode = "0111" and ra = "00") or (opcode = "0111" and ra = "10")
+  WB <= '0' when opcode = "0000" or carry_oper = '1' or  (opcode = "0111" and ra = "00") or (opcode = "0111" and ra = "10") or(opcode="1100" and ra(1)='1') or (opcode="1110") 
     else '1';
 
   -- out port enable ()to write back init
@@ -47,7 +47,7 @@ architecture cu_arch of cu is
     else '0';
 
   NOP <= '0';
-  LS <= '1' when opcode = "0111" and ra = "01"  -- at pop operation
+  LS <= '1' when (opcode = "0111" and ra = "01") or (opcode="1100" and ra(1)='0') or opcode="1101"   -- at pop operation, LDM ,LDD , LDI
     else '0'; 
 
   ALU_MAP_MODULE: alu_map port map(opcode, s1, s2, sp, in_port, ra, a,b,cin,oper,change_flags);
@@ -58,7 +58,7 @@ architecture cu_arch of cu is
   idex_input(23 downto 20)<=change_flags;
   idex_input(24)<=cin;
   idex_input(25)<=MA;
-  idex_input(27 downto 26)<= rb when opcode = "0110" or opcode ="0111" or opcode = "1000"
+  idex_input(27 downto 26)<= rb when opcode = "0110" or opcode ="0111" or opcode = "1000" or opcode(3 downto 2)="11"
     else ra;
   idex_input(28)<=sp_flag;
   idex_input(29)<=LS;
