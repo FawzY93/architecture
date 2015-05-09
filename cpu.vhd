@@ -50,7 +50,7 @@ architecture cpu_arch of cpu is
         out_flags: out std_logic_vector(3 downto 0);
         Forward_from_execute:out std_logic_vector(31 downto 0);
         PC_loader_ex :out std_logic;
-		mem_flags : in std_logic_vector(4 downto 0)
+		    mem_flags : in std_logic_vector(4 downto 0)
         );
 	end component;
 	component Memory_Access  is
@@ -108,7 +108,7 @@ signal PC_loader_ex , PC_loader_MA, notclk,From_decode,save_flags,pop_pc:std_log
   idex_output<=(others=>'0')when rst='1'
 	else idex_output_temp;
   ------------------------------------EXECUTE----------------------------------------------
-  EXECUTE_MODULE:execute port map(idex_output,exmem_input_temp,FLAGS_OUT,FLAGS_IN,Forward_from_execute,PC_loader_ex);
+  EXECUTE_MODULE:execute port map(idex_output,exmem_input_temp,FLAGS_OUT,FLAGS_IN,Forward_from_execute,PC_loader_ex,Memory_Flags);
   exmem_input<=(others=>'0')when rst='1'
 	else exmem_input_temp;
   EXMEM_REG_MODULE:my_nreg generic map(41) port map(clk, rst, '1', exmem_input, exmem_output_temp);
