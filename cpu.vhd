@@ -49,7 +49,8 @@ architecture cpu_arch of cpu is
         in_flags: in std_logic_vector(3 downto 0);
         out_flags: out std_logic_vector(3 downto 0);
         Forward_from_execute:out std_logic_vector(31 downto 0);
-        PC_loader_ex :out std_logic
+        PC_loader_ex :out std_logic;
+		mem_flags : in std_logic_vector(4 downto 0)
         );
 	end component;
 	component Memory_Access  is
