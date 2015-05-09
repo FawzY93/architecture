@@ -8,13 +8,14 @@ entity pc_logic is
     stall: in std_logic;
     From_Fetch :in std_logic_vector(15 downto 0);
     in_flags: in std_logic_vector(3 downto 0);
-    S2 : in std_logic_vector(7 downto 0);
-    PC_In :out std_logic_vector(7 downto 0)
+    S1,S2 : in std_logic_vector(7 downto 0);
+    PC_In :out std_logic_vector(7 downto 0);
+    From_wb:in std_logic_vector(40 downto 0)
   );
 end pc_logic;
 architecture pc_logic_arch of pc_logic is
   signal opcode:std_logic_vector(3 downto 0);
-  signal jz,jn,jc,jv,jmp: std_logic;
+  signal jz,jn,jc,jv,jmp, call: std_logic;
   signal Rs1, Rs2 : std_logic_vector(1 downto 0);
   begin
 
@@ -36,10 +37,17 @@ architecture pc_logic_arch of pc_logic is
   jmp <= '1' when opcode = "1011" and Rs1 = "00"
   else '0';
 
+  call <= '1' when opcode = "1011" and Rs1 = "01"
+  else '0';
+
   PC_In <= From_Fetch(7 downto 0) when From_Fetch(15 downto 8) = "00000000"
     else From_Fetch(15 downto 8) when stall = '1'
     -- branhing
-    else  S2 when (jz or jv or jn or jc or jmp) = '1'
+    else  S2 when (jz or jv or jn or jc or jmp or call) = '1'
+    -- at RET and RTI
+    else From_wb(7 downto 0) when From_wb(33) = '1'
+    -- loop
+    else s2 when s1 /= "00000001" and opcode = "1010"
     else From_Fetch(15 downto 8) + 1;
 
 end pc_logic_arch;

@@ -48,6 +48,8 @@ WB_Out(25) <= WB_In(25);
 WB_Out(29) <= WB_In(29);
 WB_Out(32) <= WB_In(32);
 
+WB_Out(33) <= WB_In(33);
+
 WB_Out(24 downto 17)<=(others=>'0');
-WB_Out(40 downto 33)<=(others=>'0');
+WB_Out(40 downto 34)<=(others=>'0');
 end WB_Arch;

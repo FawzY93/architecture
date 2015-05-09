@@ -10,7 +10,8 @@ port (
 clk : in std_logic;
 Mem_In: in std_logic_vector(40 downto 0);
 Mem_Out:out std_logic_vector(40 downto 0);
-Forward_From_MA:out std_logic_vector(31 downto 0)
+Forward_From_MA:out std_logic_vector(31 downto 0);
+PC_loader_MA :out std_logic
 );
 end Memory_Access;
 
@@ -47,6 +48,7 @@ end  component ;
 	sp<= Mem_In (28);
 	ls<= Mem_In(29);
 	NOP<=Mem_In(30);
+    PC_loader_MA <= Mem_In(33);
 	-----------------------------------
 	  -- O/P
 	-- 1LS& 1MA &2rd & 1sp_out &8ALSU_OUT or sp value, 8result_out
@@ -66,8 +68,10 @@ end  component ;
     Mem_Out(30)<=Mem_In(30);
     Mem_Out(31)<=Mem_In(31); 
     Mem_Out(32)<=Mem_In(32); --outport enable
-	---------------------------------------------
-	Mem_Out(40 downto 33)<=(others=>'0');
+	
+    Mem_Out(33) <= Mem_In(33); --pc addition
+    ---------------------------------------------
+	Mem_Out(40 downto 34)<=(others=>'0');
   	------------------------------------------------------------
 	Forward_From_MA(7 downto 0)<=dataout;
 	Forward_From_MA(15 downto 8)<=aluOrSp;

@@ -48,4 +48,8 @@ architecture get_operand_arch of get_operand is
               else From_wb(15 downto 8) when From_wb(28) = '1'
               else stack_reg_value;
 
+  -----------------forward from execute got 1WB(31),1 NOP(30),2 rd(27-26) , 1 MA(25) ,8 result(7-0)
+  -----------------forward from MA got 1WB(31),1 NOP(30),2 RD(27-26),1 MA(25),1 sp(16), ALu or sp(15-8),result(7-0)
+  -----------------forward from wb(From_wb) got 1WB(31),1 NOP(30),2 RD(27-26),1 sp(16), ALu or sp(15-8),result(7-0)
+
 end get_operand_arch;
