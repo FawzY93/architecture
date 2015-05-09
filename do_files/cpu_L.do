@@ -60,4 +60,25 @@ force -freeze sim:/cpu/clk 1 0, 0 {50 ps} -r 100
 run
 force -freez sim:/cpu/rst 0 0
 run
-
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+run
+#checked
