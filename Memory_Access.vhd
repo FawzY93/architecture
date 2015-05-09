@@ -71,7 +71,7 @@ end  component ;
 	
     Mem_Out(33) <= Mem_In(33); --pc addition
     ---------------------------------------------
-	Mem_Out(40 downto 34)<=(others=>'0');
+	Mem_Out(40 downto 34)<=Mem_In(40 downto 34);
   	------------------------------------------------------------
 	Forward_From_MA(7 downto 0)<=dataout;
 	Forward_From_MA(15 downto 8)<=aluOrSp;

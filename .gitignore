@@ -47,6 +47,7 @@ Temporary Items
 *.mti
 *.mpf
 *.wlf
+*.vstf
 work/
 *.swp
 transcript

@@ -51,5 +51,5 @@ WB_Out(32) <= WB_In(32);
 WB_Out(33) <= WB_In(33);
 
 WB_Out(24 downto 17)<=(others=>'0');
-WB_Out(40 downto 34)<=(others=>'0');
+WB_Out(40 downto 34)<=WB_In(40 downto 34);
 end WB_Arch;

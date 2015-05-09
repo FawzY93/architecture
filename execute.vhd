@@ -58,7 +58,7 @@ architecture execute_arch of execute is
   exmem_input(32)<= idex_output(32);
   exmem_input(33)<= idex_output(33);
   -----------------------------------------------------------------
-  exmem_input(40 downto 34)<=(others=>'0');
+  exmem_input(40 downto 34)<=idex_output(40 downto 34);
   --------------------------------------------------------
 	Forward_from_execute(7 downto 0)<=result;
   Forward_from_execute(31 downto 8)<=idex_output(31 downto 8);
