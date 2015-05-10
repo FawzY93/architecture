@@ -3,7 +3,7 @@ use ieee.std_logic_1164.all;
 entity cu is
   port( rst :in std_logic;
     s1,s2,in_port,sp: in std_logic_vector(7 downto 0);
-		ifid_output: in std_logic_vector(15 downto 0);
+		ifid_output: in std_logic_vector(31 downto 0);
     idex_input:out std_logic_vector(40 downto 0);
     PC_value: in std_logic_vector(7 downto 0);
     restor_flags: in std_logic
@@ -46,7 +46,7 @@ architecture cu_arch of cu is
     else '0';
 
   --if there is an operation on sp at PUSH POP
-  sp_flag <= '1' when (opcode = "0111" and ra(1) = '0') or (opcode = "1011" and ra = "10") or (opcode = "1011" and ra = "01")
+  sp_flag <= '1' when (opcode = "0111" and ra(1) = '0') or (opcode = "1011" and ra = "10") or (opcode = "1011" and ra = "01") or (opcode="1011" and ra/="00")
     else '0';
 
   NOP <= '0';

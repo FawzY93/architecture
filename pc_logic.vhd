@@ -6,11 +6,12 @@ use ieee.numeric_std.all;
 entity pc_logic is
   port(
     stall: in std_logic;
-    From_Fetch :in std_logic_vector(18 downto 0);
+    From_Fetch :in std_logic_vector(31 downto 0);
     in_flags: in std_logic_vector(3 downto 0);
     S1,S2 : in std_logic_vector(7 downto 0);
     PC_In :out std_logic_vector(7 downto 0);
-    From_wb:in std_logic_vector(40 downto 0)
+    From_wb:in std_logic_vector(40 downto 0);
+    ea_imm:in std_logic_vector(7 downto 0)
   );
 end pc_logic;
 architecture pc_logic_arch of pc_logic is
@@ -42,16 +43,20 @@ architecture pc_logic_arch of pc_logic is
   call <= '1' when opcode = "1011" and Rs1 = "01"
   else '0';
 
-  PC_In <= From_Fetch(7 downto 0) when From_Fetch(15 downto 8) = "00000000"
-    else From_Fetch(15 downto 8) when stall = '1'
+  PC_In <=From_Fetch(15 downto 8) when stall = '1'
+  
+    else  From_Fetch(26 downto 19) when From_Fetch(15 downto 8) = "00000001"
+    
+    else From_Fetch(7 downto 0) when From_Fetch(15 downto 8) = "00000000"
+    
+    -- interrupt
+    else "00000001" when call = '1' and push_pc = '1'
     -- branhing
-    else  S2 when (jz or jv or jn or jc or jmp or call) = '1'
+    else  S2 when (jz or jv or jn or jc or jmp or (call and not push_pc)) = '1'
     -- at RET and RTI
     else From_wb(7 downto 0) when From_wb(33) = '1'
     -- loop
     else s2 when s1 /= "00000001" and opcode = "1010"
-    -- interrupt
-    else "00000001" when call = '1' and push_pc = '1'
 
     else From_Fetch(15 downto 8) + 1;
 

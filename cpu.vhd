@@ -19,16 +19,16 @@ architecture cpu_arch of cpu is
      clk  :in std_logic;
      PC   :in std_logic_vector(7 downto 0);
      From_decode:in std_logic; --for L operations
-     Intr,save_flags :in std_logic;--for Intr
+     Intr,save_flags,temp_stall :in std_logic;--for Intr
      pop_pc:in std_logic;
-     Inst_pc:out std_logic_vector(18 downto 0);
+     Inst_pc:out std_logic_vector(31 downto 0);
      ea_imm : out std_logic_vector(7 downto 0)
 		 );
 	end component;
   	component decode is
 	port(
     notclk,rst: in std_logic;
-		From_Fetch :in std_logic_vector(18 downto 0);
+		From_Fetch :in std_logic_vector(31 downto 0);
 		From_wb:in std_logic_vector(40 downto 0);
 		in_port:in std_logic_vector(7 downto 0);
 		to_idex	:out std_logic_vector(40 downto 0);
@@ -39,7 +39,7 @@ architecture cpu_arch of cpu is
     flags_in: in std_logic_vector(3 downto 0);
     From_decode: out std_logic;
     PC_loader_ex , PC_loader_MA: in std_logic;
-    save_flags, pop_pc: out std_logic
+    save_flags, pop_pc,temp_stall: out std_logic
 		);
 	end component;
 
@@ -72,12 +72,12 @@ architecture cpu_arch of cpu is
 
 		);
 	end component;
-signal PC_loader_ex , PC_loader_MA, notclk,From_decode,save_flags,pop_pc:std_logic;
+  signal PC_loader_ex , PC_loader_MA, notclk,From_decode,save_flags,pop_pc,temp_stall:std_logic;
   signal FLAGS_IN,FLAGS_OUT		  :std_logic_vector(3 downto 0);
   signal Memory_Flags:  std_logic_vector(4 downto 0);
   signal PC_In,PC_Out,PC_In_Fetch,ea_imm :std_logic_vector(7 downto 0);
-  signal ifid_input,ifid_output :std_logic_vector(18 downto 0);
-  signal ifid_input_temp,ifid_output_temp :std_logic_vector(18 downto 0);
+  signal ifid_input,ifid_output :std_logic_vector(31 downto 0);
+  signal ifid_input_temp,ifid_output_temp :std_logic_vector(31 downto 0);
   signal Forward_From_MA,Forward_from_execute:std_logic_vector(31 downto 0);
   signal idex_input,idex_output, exmem_input,exmem_output,memwb_input,memwb_output,WB_Out :std_logic_vector(40 downto 0);
   signal idex_input_temp,idex_output_temp, exmem_input_temp,exmem_output_temp,memwb_input_temp,memwb_output_temp,WB_Out_temp :std_logic_vector(40 downto 0);
@@ -91,16 +91,16 @@ signal PC_loader_ex , PC_loader_MA, notclk,From_decode,save_flags,pop_pc:std_log
   PC_In_Fetch <= "00000000" when rst = '1'
     else PC_In;
 
-	Fetch_MODULE:fetch port map(clk,PC_In_Fetch,From_decode,Intr,save_flags,pop_pc,ifid_input_temp,ea_imm);
+	Fetch_MODULE:fetch port map(clk,PC_In_Fetch,From_decode,Intr,save_flags,temp_stall,pop_pc,ifid_input_temp,ea_imm);
 	ifid_input<=(others=>'0')when rst='1'
 	else ifid_input_temp;
-	IFID_REG_MODULE:my_nreg generic map(19) port map(clk, rst, '1', ifid_input, ifid_output_temp);
+	IFID_REG_MODULE:my_nreg generic map(32) port map(clk, rst, '1', ifid_input, ifid_output_temp);
   --  8 pc & 8 instrucion  
   
   ------------------------------------DECODE----------------------------------------------
   ifid_output<=(others=>'0')when rst='1'
 	else ifid_output_temp;
-  Decode_MODULE:decode port map(notclk,rst,ifid_output,WB_Out,in_port,idex_input_temp, PC_In, Forward_from_execute, Forward_From_MA,ea_imm, FLAGS_IN, From_decode,PC_loader_ex, PC_loader_MA);
+  Decode_MODULE:decode port map(notclk,rst,ifid_output,WB_Out,in_port,idex_input_temp, PC_In, Forward_from_execute, Forward_From_MA,ea_imm, FLAGS_IN, From_decode,PC_loader_ex, PC_loader_MA,save_flags,pop_pc,temp_stall);
   idex_input<=(others=>'0')when rst='1'
 	else idex_input_temp;
 

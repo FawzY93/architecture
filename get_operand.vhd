@@ -2,13 +2,14 @@ Library ieee;
 use ieee.std_logic_1164.all;
 entity get_operand is
   port(
-        From_Fetch :in std_logic_vector(18 downto 0);
+        From_Fetch :in std_logic_vector(31 downto 0);
         From_wb:in std_logic_vector(40 downto 0);
         Forward_from_execute:in std_logic_vector(31 downto 0);
         Forward_From_MA:in std_logic_vector(31 downto 0);
         reg_s1, reg_s2, stack_reg_value, ea_imm:in std_logic_vector(7 downto 0);
         S1, S2, stack_value:out std_logic_vector(7 downto 0);
-        flags_in: in std_logic_vector(3 downto 0)
+        flags_in: in std_logic_vector(3 downto 0);
+         sp:in std_logic
         );
 end get_operand;
 
@@ -38,20 +39,22 @@ architecture get_operand_arch of get_operand is
       --from register file      
       else reg_s1;
         
-    S2 <= Forward_from_execute(7 downto 0) when Forward_from_execute(27 downto 26) = Rs2 and Forward_from_execute(31) = '1'
+      
+    S2 <= "0000"&flags_in when push_oper = '1' and save_flags_pass = '1' -- at interupt
+
+      else Forward_from_execute(7 downto 0) when Forward_from_execute(27 downto 26) = Rs2 and Forward_from_execute(31) = '1'
       --from MA and  it's MA operation
       else Forward_From_MA(7 downto 0) when Forward_From_MA(27 downto 26) = Rs2 and Forward_From_MA(31) = '1' and Forward_From_MA(25) = '1'
       -- from MA and it's NOT Ma operation 
       else Forward_From_MA(15 downto 8) when Forward_From_MA(27 downto 26) = Rs2 and Forward_From_MA(31) = '1' and Forward_From_MA(25) = '0'
       -- from WA 
       else From_wb(7 downto 0) when From_wb(27 downto 26) = Rs2 and From_wb(31) = '1'
-      -- at interupt
-      else "0000"&flags_in when push_oper = '1' and save_flags_pass = '1'
       --from register file
       else reg_s2;
     
       --sp equal to sp at MA when sp_flag at Ma  = 1
-    stack_value <= Forward_From_MA(15 downto 8) when Forward_From_MA(28) = '1'
+    stack_value <=Forward_from_execute(7 downto 0) when Forward_from_execute(28)='1' and Forward_from_execute(29)='1' 
+              else  Forward_From_MA(15 downto 8) when Forward_From_MA(28) = '1'                                
               -- sp equal wb when ot's sp_flag = 1
               else From_wb(15 downto 8) when From_wb(28) = '1'
               else stack_reg_value;

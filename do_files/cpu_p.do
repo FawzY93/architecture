@@ -68,25 +68,4 @@ run
 force -freeze sim:/cpu/in_port 00000101 0
 run
 
-run
-run
-run
-run
-run
-run
-run
-run
-run
-run
-run
-run
-run
-run
-run
-run
-run
-run
-run
-run
-
 #checked
