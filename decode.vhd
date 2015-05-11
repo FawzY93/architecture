@@ -122,7 +122,8 @@ begin
     pop_pc <= restor_flags;
 
   -- for branching;
-  PC_value <= From_Fetch(15 downto 8) +1;
+  PC_value <= From_Fetch(15 downto 8) +1 when push_pc<='0'
+  else From_Fetch(15 downto 8);
   jz <= '1' when opcode = "1001" and Rs1 = "00" and flags_in(2) = '1'
   else '0';
 
