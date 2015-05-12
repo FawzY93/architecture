@@ -56,15 +56,15 @@ end  component ;
 	aluOrSp<=result-1 when LS='0' and sp='1' and Ma='1' 
 	else result;
 	Mem_Out(15 downto 8)<=aluOrSp;
-	Mem_Out(16)<= sp;
+
 	-----------------------------------------
-	Mem_Out(24 downto 17)<=(others=>'0');
+	Mem_Out(24 downto 16)<=(others=>'0');
 	-----------------------------------------
 	Mem_Out(25)<=MA;
 	Mem_Out(27 downto 26)<=Rd;
 	Mem_Out(28)<=sp;
   	Mem_Out(29)<=LS;
-    Mem_Out(21)<=Mem_In(21);
+ 
     Mem_Out(30)<=Mem_In(30);
     Mem_Out(31)<=Mem_In(31); 
     Mem_Out(32)<=Mem_In(32); --outport enable
