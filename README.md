@@ -1,6 +1,7 @@
 ## Introduction 
-* This is implementation of simplified MIPS (pipeline) microprocessor by VHDL 
-* it's academic Project of (Computer Architecture) course
+* This is implementation of simplified MIPS (pipeline) microprocessor coded by VHDL. 
+* It's an academic Project of (Computer Architecture) course.
+
 
 ## Specification 
   * Word length 16 bits.
@@ -9,8 +10,7 @@
   * Handling RAW (read after right) data hazard with forwarding and stall
   * Using harvard architecture (2 memories one for instructions and another for data)
   * When interrupt rise instruction Fetch unit will be flushed ,rest will continue
-  * there is stall cycle between push pc and save flags
-  * if Pop R3 (sp) Memory value will be in R3 not sp+1 
+  * There is stall cycle between push pc and save flags
 ![specs logo] (https://raw.githubusercontent.com/FawzY93/architecture/master/Images/general-specs.PNG) 
 
 ##The CPU support the following instruction set:
@@ -26,5 +26,5 @@
 ## Authors
 * [Ahmed Kamal Abd El Raouf.](https://github.com/AhmedKamal1432)
 * [Mohamed Fawzy Abd El Raouf.](m_fawzy93@hotmail.com)
-* [Abdel Rahman Sharbasy]
+* [Abd El Rahman Sharbasy. ] ()
 * [Waleed Nader Hassanen.](waleed.nader93@live.com)
